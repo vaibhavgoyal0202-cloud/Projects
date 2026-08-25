@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesories</title>
+    <style>
+        body{font-family: Arial, sans-serif; margin:20px}
+        header{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:#fff;border-bottom:1px solid #eee}
+        .brand{color:#f43397;text-decoration:none;font-weight:800;font-size:26px}
+        .product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px;max-width:1200px;margin:0 auto}
+        .product-card{background:#fff;border:1px solid #ddd;border-radius:8px;padding:14px;text-align:center;display:flex;flex-direction:column;gap:8px}
+        .product-card img{width:100%;height:180px;object-fit:cover}
+        .price{font-weight:700;color:#e91e63}
+        .add-btn{background:#e91e63;color:#fff;border:none;padding:10px;border-radius:4px;cursor:pointer}
+        @media (max-width:480px){.product-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <header>
+        <a class="brand" href="index.html">meesho</a>
+        <div>Accesories</div>
+    </header>
+
+    <h1 style="text-align:center;margin-top:20px">Accesories</h1>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x180?text=Phone+Case" alt="Phone Case">
+            <h2>Silicone Phone Case</h2>
+            <p class="price">₹299</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x180?text=Watch+Strap" alt="Watch Strap">
+            <h2>Leather Watch Strap</h2>
+            <p class="price">₹499</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x180?text=Wallet" alt="Wallet">
+            <h2>Card Wallet</h2>
+            <p class="price">₹399</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x180?text=Sunglasses" alt="Sunglasses">
+            <h2>Classic Sunglasses</h2>
+            <p class="price">₹899</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html>

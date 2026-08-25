@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meesho</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .site-header { display:flex; align-items:center; justify-content:space-between; padding:12px 50px; background:#fff; border-bottom:1px solid #e2e2e2; position:sticky; top:0; z-index:1000; }
+        .header-inner { display:flex; align-items:center; gap:30px; flex:1; }
+        .brand { text-decoration:none; color:#f43397; font-size:32px; font-weight:800; }
+        .search { display:flex; align-items:center; border:1px solid #ccc; padding:10px 15px; border-radius:4px; width:60%; background:#fff; }
+        .search input { border:none; outline:none; width:100%; font-size:14px; }
+        .nav { display:flex; align-items:center; gap:20px; }
+        .btn-primary { background-color:#f43397; color:#fff; border:none; padding:10px 20px; border-radius:4px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:8px; }
+        .link { text-decoration:none; color:#333; font-weight:500; font-size:15px; }
+        .category-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px; max-width:1200px; margin:40px auto; padding:0 20px; border-radius: 15%;}
+        .category-card { text-decoration:none; min-width:180px; background:linear-gradient(180deg,#f0efff 0%,#fff 100%); border-radius:12px; border:1px solid #e2e2e2; display:flex; flex-direction:column; overflow:visible; }
+        .category-card .thumb { height:180px; display:flex; align-items:center; justify-content:center; padding:20px; }
+        .category-card img{ max-height:100%; object-fit:contain; border-radius:10px; }
+        .category-label { background:#e90586; color:white; text-align:center; padding:12px; font-weight:bold; font-size:16px; }
+        .nav-icon { font-size: 18px; }
+        .nav-label { font-size: 12px; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        
+        <div class="header-inner">
+            <a href="/" class="brand">meesho</a>
+            
+            <div class="search" role="search" aria-label="Site search">
+                <span>🔍</span>
+                <input type="text" placeholder="Try Clothes, Electronics or Search by Product Code">
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="#" class="link">
+                <button class="btn-primary">
+                    <span>📱</span> Download App
+                </button>
+            </a>
+            
+            <a href="#" class="link">Become a Supplier</a>
+            <a href="#" class="link">Newsroom</a>
+
+            <div class="divider" aria-hidden="true"></div>
+
+            <a href="#" class="link" aria-label="Profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profile</div>
+            </a>
+            <a href="the cart .html" class="link" aria-label="Cart">
+                <div class="nav-icon">🛒</div>
+                <div class="nav-label">Cart</div>
+            </a>
+        </nav>
+    </header>
+    
+    <div class="category-grid">
+            
+        <a href="Personal care .html" class="category-card">
+            <div class="thumb">
+                <img src="https://cdn.shopify.com/s/files/1/0646/1551/4330/files/Importance_of_Personal_Care_Products_480x480.webp?v=1673811372" alt="Nivea">
+            </div>
+            <div class="category-label">Personal Care</div>
+        </a>
+
+        <a href="Electronics .html" class="category-card">
+            <div class="thumb">
+                <img src="https://storelocal.com.au/wp-content/uploads/2024/03/electronics-3-300x200.jpeg" alt="Headphones">
+            </div>
+            <div class="category-label">Electronics</div>
+        </a>
+
+        <a href="Makeup .html" class="category-card">
+            <div class="thumb">
+                <img src="https://skyatransdermic.com/cdn/shop/articles/Top_10_Cosmetic_Companies_in_Uganda.jpg?v=1734583296" alt="Makeup">
+            </div>
+            <div class="category-label">Makeup</div>
+        </a> 
+
+        <a href="Smart Phones .html" class="category-card">
+            <div class="thumb">
+                <img src="https://www.nextpit.com/img/Best_Smartphones_October_2023.jpg" alt="Smart Phones">
+            </div>
+            <div class="category-label">Smart Phones</div>
+        </a>
+        <a href="Books .html" class="category-card">
+            <div class="thumb">
+                <img src="https://www.penguinrandomhouse.ca/sites/default/files/2025-11/Cover%20Template.jpg" alt="Books">
+            </div>
+            <div class="category-label">Books</div>
+        </a>
+        <a href="Fashion .html" class="category-card">
+            <div class="thumb">
+                <img src="https://www.smartpatternmaking.com/cdn/shop/articles/Fashion-Sketch.jpg?v=1696029015" alt="Fashion">
+            </div>
+            <div class="category-label">Fashion</div>
+        </a>
+        <a href="Health & Wellness .html" class="category-card">
+            <div class="thumb">
+                <img src="https://xgentech.net/cdn/shop/articles/pexels-n-voitkevich-7852731_28b2956f-23f8-46af-b1fb-a9cd91c9fe74.jpg?v=1762440996" alt="Health & Wellness">
+            </div>
+            <div class="category-label">Health & Wellness</div>
+        </a>
+        <a href="Home & Kitchen .html" class="category-card">
+            <div class="thumb">
+                <img src="https://vaya.in/careers/wp-content/uploads/2021/05/10-Must-Have-Appliances-for-Easy-Kitchen-Chores.jpg" alt="Home & Kitchen">
+            </div>
+            <div class="category-label">Home & Kitchen</div>
+        </a>
+        <a href="Sports & Fitness .html" class="category-card">
+            <div class="thumb">
+                <img src="https://sgsuniversity.ac.in/wp-content/uploads/2023/11/20SOS-1.png" alt="Sports & Fitness">
+            </div>
+            <div class="category-label">Sports & Fitness</div>
+        </a>
+        <a href="Travel & luggage .html" class="category-card">
+            <div class="thumb">
+                <img src="https://thumbs.dreamstime.com/b/suitcase-beach-items-air-pink-background-ready-to-travel-391335671.jpg" alt="Travel & Luggage">
+            </div>
+            <div class="category-label">Travel & Luggage</div>
+        </a>
+        <a href="Accessories .html" class="category-card">
+            <div class="thumb">
+                <img src="https://www.rmcad.edu/wp-content/uploads/2025/09/shutterstock_2008428230-scaled.jpg" alt="Accessories">
+            </div>
+            <div class="category-label">Accessories</div>
+        </a>
+        <a href="Grocery .html" class="category-card">
+            <div class="thumb">
+                <img src="https://img-cdn.misfitsmarket.com/melodious-taiyaki-9pkr2z/aOZkY55xUNkB1vhz_Assortment_Pile_Mobile-1-.jpg" alt="Grocery">
+            </div>
+            <div class="category-label">Grocery</div> 
+        </a>
+
+    </div>
+    
+</body>
+</html> 

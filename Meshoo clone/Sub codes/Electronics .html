@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .site-header { display:flex; align-items:center; justify-content:space-between; padding:12px 50px; background:#fff; border-bottom:1px solid #e2e2e2; position:sticky; top:0; z-index:1000; }
+        .header-inner { display:flex; align-items:center; gap:30px; flex:1; }
+        .brand { text-decoration:none; color:#f43397; font-size:32px; font-weight:800; }
+        .search { display:flex; align-items:center; border:1px solid #ccc; padding:10px 15px; border-radius:4px; width:60%; background:#fff; }
+        .search span { margin-right:10px; color:#666; }
+        .search input { border:none; outline:none; width:100%; font-size:14px; }
+        .nav { display:flex; align-items:center; gap:20px; }
+        .btn-primary { background-color:#f43397; color:#fff; border:none; padding:10px 20px; border-radius:4px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:8px; }
+        .link { text-decoration:none; color:#333; font-weight:500; font-size:15px; }
+        .divider { height:30px; width:1px; background:#ddd; margin:0 10px; }
+        h1.page-title { text-align:center; margin-top:20px; }
+        .product-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:20px; padding:20px; max-width:1200px; margin:20px auto; }
+        .product-card { border:1px solid #ccc; border-radius:8px; padding:16px; text-align:center; display:flex; flex-direction:column; gap:10px; background:#fff; }
+        .product-card img{ object-fit:contain; width:100%; height:220px; border-radius:8px; }
+        .product-card h2{ font-size:18px; margin:0; }
+        .product-card p{ color:#555; margin:0; }
+        .price{ font-weight:bold; color:#f43397; font-size:18px; }
+        .add-btn{ padding:10px 20px; background-color:#f43397; color:white; border:none; border-radius:4px; cursor:pointer; align-self:center; }
+        @media (max-width:480px) { .site-header{ padding:12px 16px;} .search{ width:100%;} }
+    </style>
+</head>
+<body> 
+   
+    <h1 class="page-title">Electronics Products</h1>
+    <style> 
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(200px, 1fr));
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-grid > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-grid img {
+            width: 100%;
+            height: 220px;        
+            object-fit: contain; 
+            margin-bottom: 10px;
+        }
+    </style>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://www.theaudiostore.in/cdn/shop/files/sennheiser-momentum-4-active-noise-canceling-wireless-headphones-graphite-43185827774719.jpg?v=1744392349&width=1500" alt="Product 1">
+            <h2>Wireless Headphones</h2>
+            <p>High-quality sound with noise cancellation.</p>
+            <p class="price">₹3999</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://www.digitaltrends.com/tachyon/2021/08/galaxy-watch-4-classic-wrist-pocket.jpg?resize=1200%2C630" alt="Product 2">
+            <h2>Smartwatch</h2>
+            <p>Track your fitness and stay connected.</p>
+            <p class="price">₹1899</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://i.rtings.com/assets/products/sVaiMndk/jbl-charge-5/design-medium.jpg?format=auto" alt="Product 3">
+            <h2>Bluetooth Speaker</h2>
+            <p>Portable speaker with deep bass.</p>
+            <p class="price">₹4999</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://in.static.webuy.com/product_images/Electronics/Camcorders/SDVCSONFDRX3000C_l.jpg" alt="Product 4">
+            <h2>4K Action Camera</h2>
+            <p>Capture your adventures in stunning 4K.</p>
+            <p class="price">₹129999</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://mobilla.in/cdn/shop/articles/Blog-image-Fusion_dca97b16-68ce-4996-902d-2377d9c3afa7_1100x.webp?v=1752131744" alt="Product 5">
+            <h2>Wireless Charger</h2>
+            <p>Fast and convenient charging for your devices.</p>
+            <p class="price">₹999</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://www.pebblecart.com/cdn/shop/files/Homepage_Banner_mobile_5_e4a079cf-599b-4168-9632-00ddeefb8ea0.webp?v=176183718700&width=382" alt="Product 6">
+            <h2>Fitness Tracker</h2>
+            <p>Monitor your health and activity levels.</p>
+            <p class="price">₹1999</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://i.ytimg.com/vi/e5HxRb1g6gs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBCY-mBHN9dRPQz4ARNNOolWH2YhA   " alt="Product 7">
+            <h2>Noise-Cancelling Earbuds</h2>
+            <p>Immersive sound experience on the go.</p>
+            <p class="price">₹1899</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://www.dusuniot.com/wp-content/uploads/2023/07/smart-home-hub.jpg" alt="Product 8">
+            <h2>Smart Home Hub</h2>
+            <p>Control all your smart devices from one place.</p>
+            <p class="price">₹39999</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+</body>
+</html>

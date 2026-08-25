@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makeup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+        }
+        .product-card h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .product-card p {
+            color: #555;
+            margin: 0;
+        }
+        .price {
+            font-weight: bold;
+            color: #f43397;
+            font-size: 16px;
+        }
+        .add-btn {
+            background-color: #f43397;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Makeup Products</h1>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/61b6p3mXGDL._SL1500_.jpg" alt="Lipstick">
+            <h2>Matte Lipstick</h2>
+            <p>A long-lasting matte lipstick that provides vibrant color and a smooth finish.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71jG+8k3JDL._SL1500_.jpg" alt="Foundation">
+            <h2>Liquid Foundation</h2>
+            <p>A lightweight liquid foundation that offers full coverage and a natural look.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/61F4j3bXoDL._SL1500_.jpg" alt="Eyeshadow Palette">
+            <h2>Eyeshadow Palette</h2>
+            <p>A versatile eyeshadow palette with a range of colors for any occasion.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71jG+8k3JDL._SL1500_.jpg" alt="Blush">
+            <h2>Powder Blush</h2>
+            <p>A silky powder blush that adds a natural flush of color to the cheeks.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/61b6p3mXGDL._SL1500_.jpg" alt="Mascara">
+            <h2>Volumizing Mascara</h2>
+            <p>A volumizing mascara that enhances lashes for a fuller, more dramatic look.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71jG+8k3JDL._SL1500_.jpg" alt="Highlighter">
+            <h2>Liquid Highlighter</h2>
+            <p>A liquid highlighter that gives skin a radiant, glowing finish.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/61F4j3bXoDL._SL1500_.jpg" alt="Eyeshadow Palette">
+            <h2>Eyeshadow Palette</h2>
+            <p>A versatile eyeshadow palette with a range of colors for any occasion.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/61b6p3mXGDL._SL1500_.jpg" alt="Lip Gloss">
+            <h2>Shimmer Lip Gloss</h2>
+            <p>A shimmering lip gloss that adds shine and a hint of color to the lips.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71jG+8k3JDL._SL1500_.jpg" alt="Concealer">
+            <h2>Liquid Concealer</h2>
+            <p>A liquid concealer that effectively covers blemishes and dark circles.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/61F4j3bXoDL._SL1500_.jpg" alt="Setting Spray">
+            <h2>Makeup Setting Spray</h2>
+            <p>A makeup setting spray that helps keep makeup in place all day long.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/61b6p3mXGDL._SL1500_.jpg" alt="Bronzer">
+            <h2>Matte Bronzer</h2>
+            <p>A matte bronzer that adds warmth and definition to the face.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71jG+8k3JDL._SL1500_.jpg" alt="Eyebrow Pencil">
+            <h2>Eyebrow Pencil</h2>
+            <p>An eyebrow pencil that shapes and defines brows for a polished look.</p>
+            <div class="price"></div>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html>

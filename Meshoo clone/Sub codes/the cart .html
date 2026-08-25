@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Meesho</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            padding: 15px 50px;
+            background: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            text-decoration: none;
+            color: #f43397;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .checkout-step {
+            font-weight: bold;
+            color: #666;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            display: flex;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .left {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .left h2 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .cart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            display: flex;
+            gap: 20px;
+        }
+
+        .cart-card img {
+            width: 100px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .cart-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cart-details h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .cart-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .item-price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .item-actions button {
+            background: none;
+            border: none;
+            color: #f43397;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+        }
+        .item-actions { display:flex; gap:20px; }
+
+        .add-more {
+            text-decoration: none;
+            color: #f43397;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .right {
+            flex: 1;
+        }
+
+        .price-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .price-box h3 {
+            margin: 0 0 20px 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .discount {
+            color: #038d63;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .success-banner {
+            background: #f0fdf4;
+            color: #038d63;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .continue-btn {
+            width: 100%;
+            background: #f43397;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .payments {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .payments img {
+            width: 100%;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 680px) {
+            header { padding: 12px 20px; }
+            main { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="brand">meesho</a>
+        <div class="checkout-step">Checkout Step 1/3</div>
+    </header>
+
+    <main>
+        <div class="left">
+            <h2>Cart Items (1 Item)</h2>
+
+            <div class="cart-card" role="group" aria-label="Cart item">
+                <img src="https://fastcolors.in/cdn/shop/files/Black_Printed_oversize_t_shirt_for_men_-_FastColors_-_Oversize_Printed_T-Shirt_-_FastColors_-_tag1_-_tag2_-_tag3_-_-6265988.jpg?v=1751898684&width=2048" alt="Men Printed Tshirt">
+
+                <div class="cart-details">
+                    <div>
+                        <h3>Men Printed Tshirt</h3>
+                        <p>Size: Free Size | Qty: 1</p>
+                    </div>
+
+                    <div class="item-price">₹175</div>
+
+                    <div class="item-actions" aria-hidden="false" style="display:flex; gap:20px;">
+                        <button>REMOVE</button>
+                        <button>EDIT</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-card" role="group" aria-label="Cart item">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSCud_AEFyurrXFs_791X2Nfls5T6dlhEtta09JvzEzDh_K4mOwLivNMjbHMJsu9kCOq-NeYXRp8itJS2AM8ZIp0-bWXW9LpUf8issJM_A" alt="Layered Kurta">
+                <div class="cart-details">
+                    <div>
+                        <h3>Layered Kurta</h3>
+                        <p>Size: M | Qty: 1</p>
+                    </div>
+                    <div class="item-price">₹1599</div>
+                    <div class="item-actions" aria-hidden="false" style="display:flex; gap:20px;">
+                        <button>REMOVE</button>
+                        <button>EDIT</button>
+                    </div>
+                    </div>
+            </div>
+            <div class="cart-card" role="group" aria-label="Cart item">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS4RsdEawLkB1sleYa4lfxJ9ZUbnNtg9Zy3l8_pTTRFRUzLCR8Faqk-DT7IZVX9aNc4jyKE7Jdv4eKwxYNHqcrtSouvZA1CBBf_8dz093Q" alt="Revitalizing Serum">
+                <div class="cart-details">
+                    <div>
+                         <h3>Revitalizing Serum</h3>
+                         <p>50ml | Qty: 1</p>
+                    </div>
+                    <div class="item-price">₹1299</div>
+                    <div class="item-actions" aria-hidden="false">
+                         <button>REMOVE</button>
+                         <button>EDIT</button>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="add-more">← Add more products</a>
+        </div>
+
+        <div class="right">
+            <div class="price-box" aria-labelledby="price-details">
+                <h3 id="price-details">Price Details</h3>
+
+                <div class="price-row">
+                    <span>Total Product Price</span>
+                    <span>₹</span>
+                </div>
+
+                <div class="price-row discount">
+                    <span>Product Discount</span>
+                    <span>- ₹0</span>
+                </div>
+
+                <div class="total-row">
+                    <span>Order Total</span>
+                    <span>₹175</span>
+                </div>
+
+                <div class="success-banner">Yay! Your total discount is ₹0</div>
+
+                <button class="continue-btn">Continue</button>
+            </div>
+
+            <div class="payments">
+                <img src="https://images.meesho.com/images/pow/safe-payments-desktop.webp" alt="secure payments">
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meesho Clone - Interactive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="header-left">
+            <a href="/" class="brand">meesho</a>
+
+            <div class="search">
+                <span class="search-icon">🔍</span>
+                <input id="search-input" type="text" placeholder="Try Cloths, Electronics or Search by Product Code">
+            </div>
+        </div>
+
+        <nav class="header-nav">
+            <a href="#">
+                <button class="download-btn">
+                    <span>📱</span> Download App
+                </button>
+            </a>
+
+            <a href="#">Become a Supplier</a>
+            <a href="#">Newsroom</a>
+
+            <div class="divider"></div>
+
+            <a href="#" class="nav-center">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profile</div>
+            </a>
+
+            <a href="Sub codes/Cart type 1 .html" class="nav-center">
+                <div class="nav-icon">🛒</div>
+                <div class="nav-label">Cart (<span id="cart-count">0</span>)</div>
+            </a>
+        </nav>
+    </header>
+
+    <nav class="category-nav">
+        <ul class="category-list">
+
+            <li class="nav-item">
+            <a href="#">Women Ethnic</a>
+            <div class="mega-menu left-0">
+                <div class="menu-column">
+                    <h4>Top Wear</h4>
+                    <a href="Sub codes/Women kurta .html">Kurtas & Suits</a>
+                    <a href="Sub codes/Women kurta .html">Kurtis & Tunics</a>
+                    <a href="Sub codes/Women kurta .html">Dress Material</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Bottom Wear</h4>
+                    <a href="#">Palazzos & Skirts</a>
+                    <a href="#">Leggings & Salwars</a>
+                    <a href="#">Jeans & Trousers</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Other Ethnic Wear</h4>
+                    <a href="#">Sarees</a>
+                    <a href="#">Lehenga Cholis</a>
+                    <a href="#">Dupattas</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Footwears</h4>
+                    <a href="#">Flats</a>
+                    <a href="#">Heels</a>
+                    <a href="#">Bellies and Bellerinas</a>
+                    <a href="#">Sandals</a>
+                </div>
+            </div>
+            
+        </li>
+        <li class="nav-item">
+            <a href="#">Women Western</a>
+            <div class="mega-menu left-neg-100">
+                <div class="menu-column">
+                    <h4>Tops</h4>
+                    <a href="#">Tops</a>
+                    <a href="#">Shirts</a>
+                    <a href="#">Dresses</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Bottoms</h4>
+                    <a href="#">Jeans</a>
+                    <a href="#">Leggings</a>
+                    <a href="#">Skirts</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Footwears</h4>
+                    <a href="#">Flats</a>
+                    <a href="#">Heels</a>
+                    <a href="#">Casual Shoes</a>
+                    <a href="#">Sports Shoes</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Accessories</h4>
+                    <a href="#">Bags</a>
+                    <a href="#">Watches</a>
+                    <a href="#">Jewellery</a>
+                </div>
+            </div>
+        </li>
+        
+        <li class="nav-item">
+            <a href="#">Men</a>
+            <div class="mega-menu left-neg-200">
+                <div class="menu-column">
+                    <h4>Top Wear</h4>
+                    <a href="Sub codes/Mens top wear .html">Summer T-Shirts</a>
+                    <a href="Sub codes/Mens top wear .html">Shirts</a>
+                    <a href="Sub codes/Mens top wear .html">T-Shirts Combos</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Bottom Wear</h4>
+                    <a href="#">Jeans</a>
+                    <a href="#">Cargos/Trousers</a>
+                    <a href="#">Dhotis/Lungis</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Ethnic Wear</h4>
+                    <a href="#">Kurtas</a>
+                    <a href="#">Kurta Sets</a>
+                    <a href="#">Nehru Jacket</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Innerwear</h4>
+                    <a href="#">Vests</a>
+                    <a href="#">Briefs</a>
+                    <a href="#">Boxers</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Sports Wear</h4>
+                    <a href="#">Trackpants</a>
+                    <a href="#">Tracksuits</a>
+                    <a href="#">Gym Tshirts</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Footwear</h4>
+                    <a href="#">Men Footwear</a>
+                    <a href="#">Casual Shoes</a>
+                    <a href="#">Sports Shoes</a>
+                    <a href="#">Formal Shoes</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Accessories</h4>
+                    <a href="#">Watches</a>
+                    <a href="#">Belts</a>
+                    <a href="#">Wallets</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a href="#">Kids</a>
+            <div class="mega-menu left-neg-200">
+                <div class="menu-column">
+                    <h4>Boys Clothing</h4>
+                    <a href="#">T-Shirts</a>
+                    <a href="#">Shirts</a>
+                    <a href="#">Shorts</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Girls Clothing</h4>
+                    <a href="#">T-Shirts</a>
+                    <a href="#">Shirts</a>
+                    <a href="#">Shorts</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Accessories</h4>
+                    <a href="#">Watches</a>
+                    <a href="#">Belts</a>
+                    <a href="#">Sunglasses</a>
+                    <a href="#">Bags</a>
+                </div>
+            </div>
+
+        </li>
+        <li class="nav-item">
+            <a href="#">Home & Kitchen</a>
+            <div class="mega-menu left-neg-100">
+                <div class="menu-column">
+                    <h4>Home Decor</h4>
+                    <a href="#">Wall Art</a>
+                    <a href="#">Clocks</a>
+                    <a href="#">Showpieces</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Kitchen Essentials</h4>
+                    <a href="#">Cookware</a>
+                    <a href="#">Dinner Sets</a>
+                    <a href="#">Storage Containers</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Bedding</h4>
+                    <a href="#">Bedsheets</a>
+                    <a href="#">Pillows</a>
+                    <a href="#">Blankets</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a href="#">Beauty & Health</a>
+            <div class="mega-menu left-neg-100">
+                <div class="menu-column">
+                    <h4>Makeup</h4>
+                    <a href="#">Lipsticks</a>
+                    <a href="#">Foundations</a>
+                    <a href="#">Mascaras</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Skincare</h4>
+                    <a href="#">Face Wash</a>
+                    <a href="#">Moisturizers</a>
+                    <a href="#">Sunscreens</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Health Products</h4>
+                    <a href="#">Supplements</a>
+                    <a href="#">Fitness Equipment</a>
+                    <a href="#">Personal Care</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Hair Care</h4>
+                    <a href="#">Shampoos</a>
+                    <a href="#">Conditioners</a>
+                    <a href="#">Hair Oils</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Fragrances</h4>
+                    <a href="#">Perfumes</a>
+                    <a href="#">Deodorants</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Kids</h4>
+                    <a href="#">Kids Bath Products</a>
+                    <a href="#">Kids Skincare</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a href="#">Electronics</a>
+            <div class="mega-menu left-neg-300">
+                <div class="menu-column">
+                    <h4>Mobile Accessories</h4>
+                    <a href="#">Phone Cases</a>
+                    <a href="#">Chargers</a>
+                    <a href="#">Earphones</a>
+                </div>
+                <div class="menu-column alt">
+                    <h4>Smart Devices</h4>
+                    <a href="#">Smart Watches</a>
+                    <a href="#">Fitness Bands</a>
+                    <a href="#">Smart Home Devices</a>
+                </div>
+                <div class="menu-column">
+                    <h4>Computer Accessories</h4>
+                    <a href="#">Keyboards</a>
+                    <a href="#">Mice</a>
+                    <a href="#">Webcams</a>
+                </div>
+            </div>
+        </li>
+
+        </ul>
+    </nav>
+
+    <main class="container">
+
+        <div class="hero">
+            <div class="hero-content">
+                <h2>Lowest Prices <br> Best Quality Shopping</h2>
+                <div class="badges">
+                    <div class="badge primary">🚚 Free Delivery</div>
+                    <div class="badge">💸 Cash on Delivery</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Top Selling Products</h3>
+
+        <div class="products-grid">
+            
+            <div class="product-card" data-id="saree-001" data-name="Classic Georgette Saree" data-price="600" data-image="https://taruntahiliani.com/cdn/shop/files/TT26Aug47583_0ab75669-9b7c-4e15-9c8e-8d1fbbbd2edc.jpg?v=1760167097&width=1200">
+                <img src="https://taruntahiliani.com/cdn/shop/files/TT26Aug47583_0ab75669-9b7c-4e15-9c8e-8d1fbbbd2edc.jpg?v=1760167097&width=1200" alt="Classic Georgette Saree">
+                <div class="card-body">
+                    <p class="product-title">Classic Georgette Saree</p>
+                    <div class="price-row">
+                        <span class="price">₹600</span>
+                        <span class="mrp">₹1200</span>
+                        <span class="off">50% off</span>
+                    </div>
+                    <a href="#" class="tag">✓ Free Delivery</a>
+                    <div class="add-wrapper">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="tshirt-001" data-name="Men Printed Tshirt" data-price="250" data-image="https://fastcolors.in/cdn/shop/files/Black_Printed_oversize_t_shirt_for_men_-_FastColors_-_Oversize_Printed_T-Shirt_-_FastColors_-_tag1_-_tag2_-_tag3_-_-6265988.jpg?v=1751898684&width=2048">
+                <img src="https://fastcolors.in/cdn/shop/files/Black_Printed_oversize_t_shirt_for_men_-_FastColors_-_Oversize_Printed_T-Shirt_-_FastColors_-_tag1_-_tag2_-_tag3_-_-6265988.jpg?v=1751898684&width=2048" alt="Men Printed Tshirt">
+                <div class="card-body">
+                    <p class="product-title">Men Printed Tshirt</p>
+                    <div class="price-row">
+                        <span class="price">₹250</span>
+                        <span class="mrp">₹500</span>
+                        <span class="off">50% off</span>
+                    </div>
+                    <a href="#" class="tag">✓ Free Delivery</a>
+                    <div class="add-wrapper">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <h3 class="section-title">Products you might like</h3>
+
+        <section class="brands-section">
+
+            <div class="brands-header">
+                <div class="brands-title-wrap">
+                    <h2 class="brands-title">Original Brands</h2>
+                </div>
+                <a href="Sub codes/View all .html" class="view-all">VIEW ALL <span class="view-arrow">›</span></a>
+            </div>
+
+            <div class="carousel">
+
+                <a href="Sub codes/Personal care .html" class="pop">
+                    <div class="pop-media">
+                        <img src="https://cdn.shopify.com/s/files/1/0646/1551/4330/files/Importance_of_Personal_Care_Products_480x480.webp?v=1673811372" alt="Nivea">
+                    </div>
+                    <div class="pop-title">Personal Care</div>
+                </a>
+
+                <a href="Sub codes/Electronics .html" class="pop">
+                    <div class="pop-media">
+                        <img src="https://storelocal.com.au/wp-content/uploads/2024/03/electronics-3-300x200.jpeg" alt="Headphones">
+                    </div>
+                    <div class="pop-title">Electronics</div>
+                </a>
+
+                <a href="Sub codes/Makeup .html" class="pop">
+                    <div class="pop-media">
+                        <img src="https://skyatransdermic.com/cdn/shop/articles/Top_10_Cosmetic_Companies_in_Uganda.jpg?v=1734583296" alt="Makeup">
+                    </div>
+                    <div class="pop-title">Makeup</div>
+                </a>
+
+                <a href="Sub codes/Phones.html" class="pop">
+                    <div class="pop-media">
+                        <img src="https://www.triveniworld.com/cdn/shop/articles/top-mobile-phones-of-2025-guides-and-reviews-triveni-world.webp?v=1736040418&width=600" alt="Phones">
+                    </div>
+                    <div class="pop-title">Smart Phones</div>
+                </a>
+
+                <a href="Sub codes/Books .html" class="pop">
+                    <div class="pop-media">
+                        <img src="https://www.penguinrandomhouse.ca/sites/default/files/2025-11/Cover%20Template.jpg" alt="Books">
+                    </div>
+                    <div class="pop-title">Books</div>
+                </a>
+
+                <a href="Sub codes/Fashion .html" class="pop">
+                    <div class="pop-media">
+                        <img src="https://www.smartpatternmaking.com/cdn/shop/articles/Fashion-Sketch.jpg?v=1696029015" alt="Fashion">
+                    </div>
+                    <div class="pop-title">Fashion</div>
+                </a>
+
+            </div>
+        </section>
+        <div class="products-grid">
+            
+            <div class="product-card" data-id="saree-002" data-name="Rose Gold Cotton Saree" data-price="400" data-image="https://ilovesarees.com/cdn/shop/files/Himani-Rose-Gold-Tissue-Cotton-Saree7_e2042c2d-6b59-42d6-b2fe-cfd44a7df5fb.webp?v=1717568699&width=1445">
+                <img src="https://ilovesarees.com/cdn/shop/files/Himani-Rose-Gold-Tissue-Cotton-Saree7_e2042c2d-6b59-42d6-b2fe-cfd44a7df5fb.webp?v=1717568699&width=1445" alt="Rose Gold Cotton Saree">
+                <div class="card-body">
+                    <p class="product-title">Rose Gold Cotton Saree</p>
+                    <div class="price-row">
+                        <span class="price">₹400</span>
+                        <span class="mrp">₹800</span>
+                        <span class="off">50% off</span>
+                    </div>
+                    <a href="#" class="tag">✓ Free Delivery</a>
+                    <div class="add-wrapper"><button class="add-to-cart-btn">Add to Cart</button></div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="tshirt-002" data-name="Men Printed Tshirt Black" data-price="250" data-image="https://fastcolors.in/cdn/shop/files/Mens_Back_Print_Oversize_Black_Tshirt_-_FastColors-4953174.jpg?v=1738641821&width=2048">
+                <img src="https://fastcolors.in/cdn/shop/files/Mens_Back_Print_Oversize_Black_Tshirt_-_FastColors-4953174.jpg?v=1738641821&width=2048" alt="Men Printed Tshirt">
+                <div class="card-body">
+                    <p class="product-title">Men Printed Tshirt</p>
+                    <div class="price-row">
+                        <span class="price">₹250</span>
+                        <span class="mrp">₹500</span>
+                        <span class="off">50% off</span>
+                    </div>
+                    <a href="#" class="tag">✓ Free Delivery</a>
+                    <div class="add-wrapper"><button class="add-to-cart-btn">Add to Cart</button></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Help Center</a>
+        </div>
+    </footer>
+
+    <div id="toast"></div>
+    <button id="scroll-top">↑</button>
+
+    <script>
+        const cartCountEl = document.getElementById('cart-count');
+        const searchInput = document.getElementById('search-input');
+        const toastEl = document.getElementById('toast');
+        const scrollTopBtn = document.getElementById('scroll-top');
+        const productCards = document.querySelectorAll('.product-card');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+        let toastTimer = null;
+
+        function getTotalCount(items) {
+            return items.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        function saveCart() {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            cartCountEl.textContent = getTotalCount(cartItems);
+        }
+
+        function showToast(message) {
+            toastEl.textContent = message;
+            toastEl.style.opacity = '1';
+            toastEl.style.transform = 'translateY(0)';
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toastEl.style.opacity = '0';
+                toastEl.style.transform = 'translateY(20px)';
+            }, 1500);
+        }
+
+        function updateButtonState() {
+            addToCartButtons.forEach(button => {
+                const productCard = button.closest('.product-card');
+                const productId = productCard?.dataset.id;
+                if (!productId) return;
+                const existing = cartItems.find(item => item.id === productId);
+                if (existing) {
+                    button.textContent = 'Added ✓';
+                    button.disabled = true;
+                    button.style.opacity = '0.8';
+                    button.style.cursor = 'not-allowed';
+                }
+            });
+        }
+
+        function addProductToCart(card) {
+            const item = {
+                id: card.dataset.id,
+                name: card.dataset.name,
+                price: Number(card.dataset.price) || 0,
+                image: card.dataset.image,
+                quantity: 1
+            };
+
+            const existing = cartItems.find(product => product.id === item.id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cartItems.push(item);
+            }
+            saveCart();
+        }
+
+        saveCart();
+        updateButtonState();
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.product-card');
+                if (!card) return;
+                addProductToCart(card);
+                button.textContent = 'Added ✓';
+                button.disabled = true;
+                button.style.opacity = '0.8';
+                button.style.cursor = 'not-allowed';
+                showToast('Added to cart!');
+            });
+        });
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            productCards.forEach(card => {
+                const title = card.querySelector('.product-title')?.textContent.toLowerCase() || '';
+                const badge = card.querySelector('a')?.textContent.toLowerCase() || '';
+                const visible = !query || title.includes(query) || badge.includes(query);
+                card.style.display = visible ? '' : 'none';
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.style.display = window.scrollY > 250 ? 'flex' : 'none';
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

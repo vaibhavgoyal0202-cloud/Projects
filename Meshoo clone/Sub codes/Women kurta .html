@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women Top Wears</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; margin-top: 20px; }
+        .product-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:20px; padding:20px; max-width:1200px; margin:0 auto; }
+        .price{ font-weight:bold; color:#f43397; font-size:16px; }
+        .add-btn{ padding:10px 20px; background-color:#f43397; color:#fff; border:none; border-radius:4px; cursor:pointer; }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+        }
+        .product-card h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .product-card p {
+            color: #555;
+            margin: 0;
+        }
+        .price {
+            font-weight: bold;
+            color: #e91e63;
+            font-size: 16px;
+        }
+        .add-btn {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(200px, 1fr));
+            }
+        }
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Women Top Wears</h1>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSiMnY1mWqHFg4jocxSl-1C_K9PdpiMSf37egi0Bgkl4g-rTaLmZDIU2xo5LlIMSgxefB0vXgs2KegODh_JNuGpHnj2L6cDEDwBOfTDbzy5iO6P013M8WJO" alt="Designer Kurta">
+            <h2>Designer Kurta</h2>
+            <p>Stylish and comfortable designer kurta.</p>
+            <p class="price">&#8377;1299</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTgcVS710cb1aO7QxVPDGpS-dU9rgwyNbVYY7ukY_1SXqdWDi992qgoGgjBmXQrILLPVGkcqZHz4cosVLpti2jGbRxtp5-3yvZUkLZ7eumGPinqm58R_Xqoqg" alt="Embroidered Kurta">
+            <h2>Embroidered Kurta</h2>
+            <p>Elegant embroidered kurta with intricate designs.</p>
+            <p class="price">&#8377;1499</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS8iZkJdPAGXOR95cteLoiun9zkzL7bh1aOGf1Zxewr6Rob0R4feRpb_y3wbGmTb_mAL7DFaYy_ajqsrAm8owkC5yGsJZCtciabDSV83dWzkrNHjOnKiEm9" alt="Silk Kurta">
+            <h2>Silk Kurta</h2>
+            <p>Premium silk kurta for special occasions.</p>
+            <p class="price">&#8377;1699</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQgil4iJBD5nzRee7WWzKZ2ccqaEjbSsZV9rAEs7dKbp-ib0KK0uXAyLK0bkBLfdzAl50FPjJmheCOg4MwhtvznUapSt8cxHntTAAzDhvhROX7DNfi9ePN7Mg" alt="Cotton Kurta">
+            <h2>Cotton Kurta</h2>
+            <p>Comfortable cotton kurta for everyday wear.</p>
+            <p class="price">₹899</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQS__zX5TZCxrWjywy42mkF4yyh-V53rIx5-NWL61PVK9BbidwaUoL2cY1eaPwwtHXsfQu387CqPVGwJgqRGiEPVaJAv6r6OjlhBk6NdrOl6sRpQ2WkAVBz8Og" alt="Printed Kurta">
+            <h2>Printed Kurta</h2>
+            <p>Vibrant printed kurta with modern patterns.</p>
+            <p class="price">₹1199</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQC2GJaORJEQ12gtyghm44AUYOK-P6c_HIaTX2FdKpLoWqyldmmwIfIyUQFHts1pL0Qe7fgTipp2Os6d4YERtqwGLP3Am4ONcD-Wbo3htmw" alt="Straight Cut Kurta">
+            <h2>Straight Cut Kurta</h2>
+            <p>Elegant straight cut kurta for a sleek look.</p>
+            <p class="price">&#8377;1399</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSCud_AEFyurrXFs_791X2Nfls5T6dlhEtta09JvzEzDh_K4mOwLivNMjbHMJsu9kCOq-NeYXRp8itJS2AM8ZIp0-bWXW9LpUf8issJM_A" alt="Layered Kurta">
+            <h2>Layered Kurta</h2>
+            <p>Fashionable layered kurta for a trendy style.</p>
+            <p class="price">&#8377;1599</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSCud_AEFyurrXFs_791X2Nfls5T6dlhEtta09JvzEzDh_K4mOwLivNMjbHMJsu9kCOq-NeYXRp8itJS2AM8ZIp0-bWXW9LpUf8issJM_A" alt="Anarkali Suit">
+            <h2>Anarkali Suit</h2>
+            <p>Graceful Anarkali suit with flowing design.</p>
+            <p class="price">₹1999</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="Palazzo Suit">
+            <h2>Palazzo Suit</h2>
+            <p>Trendy palazzo suit for a chic look.</p>
+            <p class="price">₹1799</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="Churidar Suit">
+            <h2>Churidar Suit</h2>
+            <p>Classic churidar suit with elegant appeal.</p>
+            <p class="price">&#8377;1599</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="Straight Fit Suit">
+            <h2>Straight Fit Suit</h2>
+            <p>Modern straight fit suit for a sophisticated look.</p>
+            <p class="price">₹1899</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="Anarkali Kurta">
+            <h2>Short Kurti</h2>
+            <p>Short kurti with a modern design.</p>
+            <p class="price">&#8377;1299</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="Long Kurti">
+            <h2>Long Kurti</h2>
+            <p>Elegant long kurti for a traditional look.</p>
+            <p class="price">&#8377;1499</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="A-Line Kurti">
+            <h2>A-Line Kurti</h2>
+            <p>Flattering A-line kurti for all body types.</p>
+            <p class="price">&#8377;1399</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="High-Low Kurti">
+            <h2>High-Low Kurti</h2>
+            <p>Trendy high-low kurti for a fashionable look.</p>
+            <p class="price">&#8377;1599</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQz4l-ZW3ViKynGpViB1JtIQnEBK5MKOdGsHs6i7RaLc9vIwQeLvTt321YNKNdy7cP3DkG-m4KNw-5YkSFK8mKrKu3WoFc7PetcpN3wnN0" alt="Asymmetrical Kurti">
+            <h2>Asymmetrical Kurti</h2>
+            <p>Unique asymmetrical kurti for a standout style.</p>
+            <p class="price">&#8377;1699</p>
+            <button class="add-btn">Add to Cart</button>
+        </div>
+    </div>
+
+</body>
+</html>
