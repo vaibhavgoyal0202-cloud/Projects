@@ -1,9 +1,0 @@
-﻿services:
-  - type: web
-    name: abes-pulse
-    env: node
-    plan: free
-    branch: main
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    autoDeploy: true
