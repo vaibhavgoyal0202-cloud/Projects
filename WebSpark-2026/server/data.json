@@ -1,0 +1,500 @@
+{
+  "users": [
+    {
+      "id": "organizer-demo",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.25b15410097@abes.ac.in",
+      "password": "Vaibhav#2025",
+      "role": "organizer",
+      "department": "Department of Computer Science & Engineering",
+      "phone": "+91 98765 43210"
+    },
+    {
+      "id": "student-demo",
+      "name": "Aarav Sharma",
+      "email": "aarav.23cs102@abes.ac.in",
+      "password": "Student#2026",
+      "role": "student",
+      "rollNo": "2300320100042",
+      "branch": "Computer Science & Engineering",
+      "year": "3rd year",
+      "phone": "+91 98111 22334"
+    },
+    {
+      "id": "b8a37aa6-5b37-4653-883d-d3c2351f3ea2",
+      "name": "Google Test Student",
+      "email": "test.google.student@abes.ac.in",
+      "password": "1ad80997-7239-43ef-8130-fd6438568ee7",
+      "role": "student",
+      "googleId": "google-sub-999888",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80",
+      "rollNo": "230032854279",
+      "branch": "Computer Science & Engineering",
+      "year": "2nd year",
+      "department": "Engineering",
+      "phone": "+91 98765 00000"
+    }
+  ],
+  "events": [
+    {
+      "id": "hack",
+      "ownerId": "organizer-demo",
+      "category": "tech",
+      "type": "TECH & HACKATHON",
+      "title": "CodeStorm 2026: 24H Campus Build sprint",
+      "tagline": "24 hours of pure adrenaline, caffeine, and breakthrough software engineering.",
+      "date": "18–19 October 2026",
+      "time": "10:00 AM onwards (24 Hours)",
+      "venue": "Innovation & Incubation Hub, Block C (3rd Floor)",
+      "capacity": 120,
+      "teamSize": "Teams of 2–4 members",
+      "prizePool": "₹60,000 Cash Pool + Cloud Credits",
+      "entry": "Free with verified College ID",
+      "status": "open",
+      "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=85",
+      "description": "An all-night build sprint bringing together the sharpest coders, AI tinkerers, and designers to solve real-world industry problems.",
+      "purpose": "CodeStorm is ABES's flagship hackathon. Bring a problem you care about, meet passionate collaborators, get mentorship from senior engineers at top product companies, and deploy production-grade software in 24 hours.",
+      "perks": [
+        "₹60,000 Cash Prize Pool",
+        "Verified Digital Merit Certificate",
+        "1:1 Mentor Hours with Industry Leads",
+        "Red Bull, Midnight Pizza & Swag Kits",
+        "Direct Fast-Track Interview Shortlisting"
+      ],
+      "schedule": [
+        {
+          "time": "10:00 AM",
+          "title": "Opening Ceremony & Track Release",
+          "location": "Kalpana Chawla Audi"
+        },
+        {
+          "time": "11:30 AM",
+          "title": "Hacking Begins & Team Formations",
+          "location": "Innovation Hub C301"
+        },
+        {
+          "time": "04:00 PM",
+          "title": "Mentorship Round 1: Architecture Review",
+          "location": "Mentorship Desks"
+        },
+        {
+          "time": "12:00 AM",
+          "title": "Midnight Snack & Gaming Break",
+          "location": "Cafeteria Courtyard"
+        },
+        {
+          "time": "08:00 AM",
+          "title": "Code Freeze & Final Deployments",
+          "location": "GitHub Submissions"
+        },
+        {
+          "time": "10:00 AM",
+          "title": "Grand Jury Pitches & Award Ceremony",
+          "location": "Kalpana Chawla Audi"
+        }
+      ],
+      "announcements": [
+        {
+          "id": "ann-bdc02b7a",
+          "text": "Test broadcast notification to all attendees",
+          "timestamp": "2026-08-25T07:50:31.152Z",
+          "organizer": "Vaibhav Goyal"
+        },
+        {
+          "id": "ann-1",
+          "text": "Hardware sandbox and GPU cluster access keys will be distributed at 11:00 AM at Desk 4.",
+          "timestamp": "2026-10-18T09:30:00Z",
+          "organizer": "Vaibhav Goyal"
+        }
+      ]
+    },
+    {
+      "id": "vibrance",
+      "ownerId": "organizer-demo",
+      "category": "culture",
+      "type": "CULTURE & FEST",
+      "title": "Vibrance '26: Grand Cultural Gala Night",
+      "tagline": "Electrifying beats, synchronized choreography, and unforgettable campus memories.",
+      "date": "17 October 2026",
+      "time": "5:30 PM – 10:30 PM",
+      "venue": "Central Lawn & Open Amphitheatre",
+      "capacity": 650,
+      "teamSize": "Solo or Group entry",
+      "prizePool": "Trophies, Goodies & Campus Fame",
+      "entry": "Free with College ID",
+      "status": "filling_fast",
+      "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=85",
+      "description": "The monumental opening night of ABES’s annual two-day cultural explosion featuring powerhouse bands, battle of the crews, and illuminated food popups.",
+      "purpose": "Vibrance is where the entire campus comes alive. Experience high-octane rock performances, classical fusion ensembles, street theater, fashion showcases, and curated artisan food stalls under the stars.",
+      "perks": [
+        "Headline Live Band Performance",
+        "Curated Campus Food Village",
+        "Neon Photo Booths & 360 Video Pods",
+        "Student Artist Showcase stage",
+        "Official Fest Pass & Bandana"
+      ],
+      "schedule": [
+        {
+          "time": "05:30 PM",
+          "title": "Gates Open & Red Carpet Welcoming",
+          "location": "Main Lawn Entrance"
+        },
+        {
+          "time": "06:15 PM",
+          "title": "Battle of the Beats: Dance Crews",
+          "location": "Main Stage"
+        },
+        {
+          "time": "08:00 PM",
+          "title": "Fashion Pulse 2026 Runway",
+          "location": "Amphitheatre"
+        },
+        {
+          "time": "09:00 PM",
+          "title": "Live Rock Band Headline Act",
+          "location": "Central Lawn Stage"
+        }
+      ],
+      "announcements": [
+        {
+          "id": "ann-2",
+          "text": "Entry through Gate 2 starts strictly at 5:00 PM. Please keep your QR Pass ready on your phone.",
+          "timestamp": "2026-10-17T15:00:00Z",
+          "organizer": "Cultural Committee"
+        }
+      ]
+    },
+    {
+      "id": "startup",
+      "ownerId": "organizer-demo",
+      "category": "career",
+      "type": "CAREER & PITCH",
+      "title": "ABES Founder Catalyst & Angel Pitch",
+      "tagline": "From napkin sketch to term sheet — pitch your venture to seed investors.",
+      "date": "21 October 2026",
+      "time": "2:00 PM – 6:30 PM",
+      "venue": "Ramanujan Seminar Hall, Block B (Auditorium 2)",
+      "capacity": 80,
+      "teamSize": "Individual Founders or Co-founders (up to 3)",
+      "prizePool": "₹2,00,000 Seed Grant + Incubator Desk",
+      "entry": "Free for student entrepreneurs",
+      "status": "open",
+      "image": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=85",
+      "description": "A high-impact pitching summit where student-led startups and SaaS ideas pitch live before angel investors and alumni venture founders.",
+      "purpose": "Pressure-test your business model, master unit economics, and get blunt actionable feedback from active VC partners, ABES alumni unicorns, and startup accelerators.",
+      "perks": [
+        "₹2,00,000 Zero-Equity Seed Grants",
+        "ABES Incubation Space (6 Months Free)",
+        "AWS & GCP Startup Credit Bundles",
+        "Exclusive Dinner with Angel Investors",
+        "Certificate of Founder Recognition"
+      ],
+      "schedule": [
+        {
+          "time": "02:00 PM",
+          "title": "Keynote: Scaling B2B SaaS from Campus",
+          "location": "Ramanujan Hall"
+        },
+        {
+          "time": "03:00 PM",
+          "title": "Round 1: 3-Minute Lightning Pitches",
+          "location": "Pitch Deck Stage"
+        },
+        {
+          "time": "04:45 PM",
+          "title": "Jury Deliberation & VC AMA Session",
+          "location": "Executive Lounge"
+        },
+        {
+          "time": "05:45 PM",
+          "title": "Grant Distribution & Networking Tea",
+          "location": "Seminar Hall Foyer"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "robotics",
+      "ownerId": "organizer-demo",
+      "category": "robotics",
+      "type": "ROBOTICS & AI",
+      "title": "RoboWars 2026: Combat Bot Arena & Tele-Op",
+      "tagline": "High-torque motors, custom titanium armor, and tactical combat in the steel arena.",
+      "date": "24 October 2026",
+      "time": "11:00 AM – 5:30 PM",
+      "venue": "Mechatronics & Robotics Arena, Block B Ground",
+      "capacity": 100,
+      "teamSize": "Teams of 2–4 members",
+      "prizePool": "₹35,000 Cash + Combat Shields",
+      "entry": "Free for participants & spectators",
+      "status": "open",
+      "image": "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=1600&q=85",
+      "description": "Design, build, and pilot wired or wireless combat robots (under 15kg & 30kg classes) through custom obstacles and sudden-death battle royale rounds.",
+      "purpose": "Master motor drivers, lithium polymer power delivery, RF controllers, and chassis design under the guidance of the ABES Robotics Society.",
+      "perks": [
+        "Hardware Lab Kit & 3D Printer Access",
+        "Official Battle Trophy & Cash Prize",
+        "Verified Technical Merit Certificate",
+        "Technical Safety Gear Provided",
+        "Robotics Club Core Membership"
+      ],
+      "schedule": [
+        {
+          "time": "11:00 AM",
+          "title": "Safety Inspection & Weight Scrutiny",
+          "location": "Arena Pit Lane"
+        },
+        {
+          "time": "12:30 PM",
+          "title": "Round 1: Obstacle Navigation Time Trial",
+          "location": "Arena Grid"
+        },
+        {
+          "time": "02:30 PM",
+          "title": "Quarter & Semi-Final Combat Duels",
+          "location": "Enclosed Steel Cage"
+        },
+        {
+          "time": "04:45 PM",
+          "title": "Grand 1v1 Final Championship",
+          "location": "Main Arena"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "run",
+      "ownerId": "organizer-demo",
+      "category": "sports",
+      "type": "SPORTS & FITNESS",
+      "title": "Sunday Sunrise 5K Campus Marathon",
+      "tagline": "Lace up, recharge your mind, and run through the scenic campus circuit.",
+      "date": "26 October 2026",
+      "time": "6:15 AM – 8:30 AM",
+      "venue": "Main Gate Archway & Sports Complex Circuit",
+      "capacity": 250,
+      "teamSize": "Solo (All fitness levels welcome)",
+      "prizePool": "Finisher Medals + Sports Gift Cards",
+      "entry": "Free for all students & faculty",
+      "status": "open",
+      "image": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1600&q=85",
+      "description": "A vibrant morning campus run designed for sprinters, joggers, and walkers alike to build healthy habits and meet fellow runners.",
+      "purpose": "Kick off your Sunday with energizing music, paced group pacers (5min/km to 8min/km), hydration stations, post-run electrolyte juices, and professional photo moments.",
+      "perks": [
+        "Custom Finisher Medals & Digital Badges",
+        "Hydration & Enerzal Electrolyte Stations",
+        "Pre-run Dynamic Warmup by Fitness Coaches",
+        "High-res Action Photography on Route",
+        "Healthy Breakfast Box (Bananas, Energy Bars)"
+      ],
+      "schedule": [
+        {
+          "time": "06:15 AM",
+          "title": "Bib Collection & Warmup Routine",
+          "location": "Main Gate Plaza"
+        },
+        {
+          "time": "06:45 AM",
+          "title": "Flag-Off: 5K Campus Circuit",
+          "location": "Starting Line Arch"
+        },
+        {
+          "time": "07:45 AM",
+          "title": "Cool Down Stretches & Medals",
+          "location": "Sports Pavilion"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "gaming",
+      "ownerId": "organizer-demo",
+      "category": "gaming",
+      "type": "E-SPORTS & GAMING",
+      "title": "Valorant & BGMI Campus Showdown",
+      "tagline": "High-refresh monitors, low-ping LAN server, and tactical esports glory.",
+      "date": "28 October 2026",
+      "time": "1:00 PM – 8:00 PM",
+      "venue": "Advanced High-Performance Compute Lab 4, Block C",
+      "capacity": 90,
+      "teamSize": "Teams of 5 (Valorant) / Squads of 4 (BGMI)",
+      "prizePool": "₹25,000 + Gaming Peripherals",
+      "entry": "Free for registered squads",
+      "status": "filling_fast",
+      "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=85",
+      "description": "The definitive inter-branch esports tournament streamed live on college screens with live casting, brackets, and grand finals.",
+      "purpose": "Showcase tactical shooter prowess, team communication, and map strategy in a structured LAN environment with zero latency.",
+      "perks": [
+        "Mechanical Keyboards & Gaming Mice Prizes",
+        "Live Streamed with Campus Casters",
+        "Verified E-Sports Certificate",
+        "Red Bull Energy Support",
+        "Official Campus Gamer Tags"
+      ],
+      "schedule": [
+        {
+          "time": "01:00 PM",
+          "title": "Bracket Seeding & Discord Setup",
+          "location": "Lab 4"
+        },
+        {
+          "time": "01:45 PM",
+          "title": "Elimination Knockout Matches",
+          "location": "LAN Server 1 & 2"
+        },
+        {
+          "time": "06:00 PM",
+          "title": "Grand Finals Best-of-3 on Big Screen",
+          "location": "Auditorium Audi 1"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "stage",
+      "ownerId": "organizer-demo",
+      "category": "culture",
+      "type": "CULTURE & ARTS",
+      "title": "Acoustic Under the Stars & Poetry Slam",
+      "tagline": "Original poetry, unplugged acoustic sets, storytelling, and honest laughter.",
+      "date": "29 October 2026",
+      "time": "4:30 PM – 8:00 PM",
+      "venue": "Open-Air Amphitheatre, ABES Campus",
+      "capacity": 180,
+      "teamSize": "Solo or Duo acts",
+      "prizePool": "Special Feature in ABES Literary Magazine",
+      "entry": "Free for performers & audience",
+      "status": "open",
+      "image": "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=1600&q=85",
+      "description": "An intimate sunset gathering celebrating raw acoustic melodies, spoken word poetry, stand-up comedy routines, and campus storytelling.",
+      "purpose": "Step onto the stage to share your original writing, perform a stripped-down song, or sit back with coffee and enjoy the authentic creative spirit of ABES.",
+      "perks": [
+        "Spotlight Stage Time with Pro Audio Mic",
+        "High-Quality Audio & Video Recording",
+        "ABES Literary Magazine Feature",
+        "Warm Coffee & Cinnamon Cookies",
+        "Certificate of Artistic Expression"
+      ],
+      "schedule": [
+        {
+          "time": "04:30 PM",
+          "title": "Performer Sound Check & Coffee",
+          "location": "Amphitheatre Stage"
+        },
+        {
+          "time": "05:00 PM",
+          "title": "Spoken Word Poetry & Stories",
+          "location": "Central Circle"
+        },
+        {
+          "time": "06:30 PM",
+          "title": "Unplugged Indie Music & Stand-up",
+          "location": "Illuminated Stage"
+        }
+      ],
+      "announcements": []
+    }
+  ],
+  "registrations": [
+    {
+      "id": "reg-demo-1",
+      "eventId": "hack",
+      "userId": "student-demo",
+      "name": "Aarav Sharma",
+      "email": "aarav.23cs102@abes.ac.in",
+      "rollNo": "2300320100042",
+      "branch": "Computer Science & Engineering",
+      "year": "3rd year",
+      "phone": "+91 98111 22334",
+      "teamName": "ByteForce AI",
+      "ticketCode": "ABES-CODE-8942",
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": true,
+      "certificateId": "CERT-2026-HACK-4412",
+      "createdAt": "2026-09-02T14:22:00Z"
+    },
+    {
+      "id": "reg-demo-2",
+      "eventId": "vibrance",
+      "userId": "student-demo",
+      "name": "Aarav Sharma",
+      "email": "aarav.23cs102@abes.ac.in",
+      "rollNo": "2300320100042",
+      "branch": "Computer Science & Engineering",
+      "year": "3rd year",
+      "phone": "+91 98111 22334",
+      "teamName": "",
+      "ticketCode": "ABES-VIB-1049",
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": false,
+      "certificateId": null,
+      "createdAt": "2026-09-10T11:05:00Z"
+    },
+    {
+      "id": "reg-sample-3",
+      "eventId": "hack",
+      "userId": "user-sample-3",
+      "name": "Ananya Verma",
+      "email": "ananya.24it055@abes.ac.in",
+      "rollNo": "2400320130055",
+      "branch": "Information Technology",
+      "year": "2nd year",
+      "phone": "+91 98777 66554",
+      "teamName": "CyberNexus",
+      "ticketCode": "ABES-CODE-9104",
+      "checkedIn": true,
+      "checkedInAt": "2026-10-18T10:20:00Z",
+      "certificateIssued": true,
+      "certificateId": "CERT-2026-HACK-4413",
+      "createdAt": "2026-09-05T09:12:00Z"
+    },
+    {
+      "id": "reg-sample-4",
+      "eventId": "hack",
+      "userId": "user-sample-4",
+      "name": "Rohan Gupta",
+      "email": "rohan.22ece081@abes.ac.in",
+      "rollNo": "2200320310081",
+      "branch": "Electronics & Comm. Engg",
+      "year": "4th year",
+      "phone": "+91 97654 32190",
+      "teamName": "WaveCrafters",
+      "ticketCode": "ABES-CODE-7723",
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": false,
+      "certificateId": null,
+      "createdAt": "2026-09-11T16:40:00Z"
+    },
+    {
+      "id": "reg-sample-5",
+      "eventId": "vibrance",
+      "userId": "user-sample-5",
+      "name": "Priya Mishra",
+      "email": "priya.24aiml012@abes.ac.in",
+      "rollNo": "2400321530012",
+      "branch": "CSE (AI & ML)",
+      "year": "2nd year",
+      "phone": "+91 98321 00987",
+      "teamName": "",
+      "ticketCode": "ABES-VIB-5521",
+      "checkedIn": true,
+      "checkedInAt": "2026-10-17T17:45:00Z",
+      "certificateIssued": true,
+      "certificateId": "CERT-2026-VIB-1092",
+      "createdAt": "2026-09-12T18:30:00Z"
+    }
+  ],
+  "saved": [
+    {
+      "userId": "student-demo",
+      "eventId": "startup"
+    },
+    {
+      "userId": "student-demo",
+      "eventId": "gaming"
+    }
+  ]
+}
