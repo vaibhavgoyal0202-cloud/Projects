@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" width="100%" height="100%" fill="none">
+  <!-- Outer Maroon Shield -->
+  <path d="M60 4 L112 24 V72 C112 104 88 126 60 136 C32 126 8 104 8 72 V24 L60 4 Z" 
+        fill="#992728" 
+        stroke="#772823" 
+        stroke-width="3" />
+  
+  <!-- Inner Gold Trim Shield -->
+  <path d="M60 12 L104 29 V70 C104 98 83 118 60 127 C37 118 16 98 16 70 V29 L60 12 Z" 
+        fill="#831f20" 
+        stroke="#ffd700" 
+        stroke-width="2" />
+
+  <!-- Shield Upper Gradient / Flare -->
+  <path d="M60 16 L98 32 V58 C85 45 60 42 60 42 C60 42 35 45 22 58 V32 L60 16 Z" 
+        fill="url(#shield-grad)" 
+        opacity="0.35" />
+
+  <defs>
+    <linearGradient id="shield-grad" x1="60" y1="16" x2="60" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.6" />
+      <stop offset="1" stop-color="#992728" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="flame-grad" x1="60" y1="30" x2="60" y2="68" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" />
+      <stop offset="0.3" stop-color="#ffd700" />
+      <stop offset="1" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Flame / Torch of Wisdom and Knowledge -->
+  <path d="M60 26 C60 26 72 38 72 50 C72 58 66 64 60 64 C54 64 48 58 48 50 C48 38 60 26 60 26 Z" 
+        fill="url(#flame-grad)" 
+        stroke="#d97706" 
+        stroke-width="1.5" />
+
+  <path d="M60 36 C60 36 66 44 66 51 C66 55 63 58 60 58 C57 58 54 55 54 51 C54 44 60 36 60 36 Z" 
+        fill="#ffffff" />
+
+  <!-- Open Academic Book Base -->
+  <g transform="translate(0, 10)">
+    <path d="M26 70 C40 66 56 69 60 72 C64 69 80 66 94 70 V96 C80 92 64 95 60 98 C56 95 40 92 26 96 V70 Z" 
+          fill="#ffffff" 
+          stroke="#ffd700" 
+          stroke-width="2.5" />
+
+    <line x1="60" y1="72" x2="60" y2="98" stroke="#772823" stroke-width="2.5" />
+
+    <path d="M32 77 C42 74 52 76 56 78" stroke="#992728" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M32 83 C42 80 52 82 56 84" stroke="#992728" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M32 89 C42 86 52 88 56 90" stroke="#992728" stroke-width="1.5" stroke-linecap="round" />
+
+    <path d="M64 78 C68 76 78 74 88 77" stroke="#992728" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M64 84 C68 82 78 80 88 83" stroke="#992728" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M64 90 C68 88 78 86 88 89" stroke="#992728" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Star of Excellence at base -->
+  <polygon points="60,112 62.5,119 70,119 64,123 66.5,130 60,126 53.5,130 56,123 50,119 57.5,119" 
+           fill="#ffd700" 
+           stroke="#d97706" 
+           stroke-width="0.75" />
+</svg>
