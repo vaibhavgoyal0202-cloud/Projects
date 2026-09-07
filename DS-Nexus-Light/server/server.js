@@ -11,7 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Render Persistent Disk or Environment Storage Support
 const defaultStoragePath = path.join(__dirname, 'data.json');
-const storageDir = process.env.DATA_STORAGE_DIR || (process.env.RENDER ? '/var/data' : null);
+const storageDir = process.env.DATA_STORAGE_DIR || (process.env.RENDER && fs.existsSync('/var/data') ? '/var/data' : null);
 const storageFile = process.env.DATA_STORAGE_PATH || (storageDir ? path.join(storageDir, 'data.json') : defaultStoragePath);
 
 // Ensure storage directory exists if on Render Persistent Disk
@@ -41,16 +41,43 @@ app.options('*', cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Load and Persist Database
+// Load and Persist Database with Auto-Seeding
 const loadDb = () => {
   try {
     if (fs.existsSync(storageFile)) {
-      const parsed = JSON.parse(fs.readFileSync(storageFile, 'utf8'));
-      if (parsed.events && parsed.users) return parsed;
+      const content = fs.readFileSync(storageFile, 'utf8');
+      if (content.trim()) {
+        const parsed = JSON.parse(content);
+        if (Array.isArray(parsed.events) && parsed.events.length > 0 && Array.isArray(parsed.users) && parsed.users.length > 0) {
+          return parsed;
+        }
+      }
     }
   } catch (err) {
-    console.error('Error reading data.json, falling back', err);
+    console.error('Error reading storageFile:', err.message);
   }
+
+  // Fallback and auto-seed from bundled default data.json
+  try {
+    if (fs.existsSync(defaultStoragePath)) {
+      const defaultContent = fs.readFileSync(defaultStoragePath, 'utf8');
+      const defaultParsed = JSON.parse(defaultContent);
+      if (Array.isArray(defaultParsed.events) && Array.isArray(defaultParsed.users)) {
+        console.log(`📦 Seeded ${defaultParsed.events.length} events and ${defaultParsed.sessions.length} sessions from default data.json`);
+        if (storageFile !== defaultStoragePath) {
+          try {
+            fs.writeFileSync(storageFile, JSON.stringify(defaultParsed, null, 2), 'utf8');
+          } catch (writeErr) {
+            console.warn('Could not seed to storageFile, using in-memory default:', writeErr.message);
+          }
+        }
+        return defaultParsed;
+      }
+    }
+  } catch (seedErr) {
+    console.error('Error seeding from default data.json:', seedErr.message);
+  }
+
   return { sessions: [], users: [], events: [], registrations: [], saved: [] };
 };
 
