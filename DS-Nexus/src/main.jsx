@@ -304,6 +304,7 @@ function App() {
   const [securityModalOpen, setSecurityModalOpen] = useState(false);
   const [paymentModalEvent, setPaymentModalEvent] = useState(null);
   const [paymentProofViewerReg, setPaymentProofViewerReg] = useState(null);
+  const [sessionManagerOpen, setSessionManagerOpen] = useState(false);
 
   // Load Sessions & Events
   const loadSessions = async () => {
@@ -570,6 +571,7 @@ function App() {
           onBroadcastAnnouncement={ev => setAnnouncementModalEvent(ev)}
           onViewDetail={ev => setDetailEvent(ev)}
           onOpenSecurity={() => setSecurityModalOpen(true)}
+          onOpenSessionManager={() => setSessionManagerOpen(true)}
           onReload={() => { loadEvents(); loadCommitteeData(); }}
         />
       ) : (
@@ -942,6 +944,16 @@ function App() {
           isCommittee={user?.role === 'committee'}
           onClose={() => setPaymentProofViewerReg(null)}
           onVerify={handleVerifyPaymentFromModal}
+        />
+      )}
+
+      {/* 12. Academic Session Management Modal */}
+      {sessionManagerOpen && (
+        <AcademicSessionManagerModal
+          sessions={sessions}
+          onClose={() => setSessionManagerOpen(false)}
+          onReloadSessions={loadSessions}
+          onReloadAll={() => { loadEvents(); if (user?.role === 'committee') loadCommitteeData(); }}
         />
       )}
     </div>
@@ -1608,7 +1620,7 @@ function StudentPortalView({ user, registrations, savedIds, onViewCert, onViewDe
 // ==========================================
 // DEPARTMENT COMMITTEE PORTAL VIEW
 // ==========================================
-function CommitteePortalView({ user, stats, sessions, onOpenCreate, onEditEvent, onManageAttendees, onManagePhotos, onBroadcastAnnouncement, onViewDetail, onOpenSecurity, onReload }) {
+function CommitteePortalView({ user, stats, sessions, onOpenCreate, onEditEvent, onManageAttendees, onManagePhotos, onBroadcastAnnouncement, onViewDetail, onOpenSecurity, onOpenSessionManager, onReload }) {
   const [selectedSessionFilter, setSelectedSessionFilter] = useState('all');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all');
   const [committeeSearch, setCommitteeSearch] = useState('');
@@ -1726,6 +1738,9 @@ function CommitteePortalView({ user, stats, sessions, onOpenCreate, onEditEvent,
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <button className="btn-primary" onClick={onOpenCreate}>
             + Create New Event / Workshop
+          </button>
+          <button className="btn-secondary" onClick={onOpenSessionManager}>
+            📅 Manage Academic Sessions
           </button>
           <button className="btn-secondary" onClick={onOpenSecurity}>
             🔑 Security & Password
@@ -3650,6 +3665,250 @@ function AuthModal({ initialRole = 'student', onClose }) {
               </div>
             </div>
           )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// ACADEMIC SESSION MANAGEMENT MODAL
+// ==========================================
+function AcademicSessionManagerModal({ sessions, onClose, onReloadSessions, onReloadAll }) {
+  const [newId, setNewId] = useState('');
+  const [newLabel, setNewLabel] = useState('');
+  const [newDesc, setNewDesc] = useState('');
+  const [isCurrent, setIsCurrent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sessionError, setSessionError] = useState('');
+  const [sessionSuccess, setSessionSuccess] = useState('');
+
+  const handleCreateSession = async e => {
+    e.preventDefault();
+    if (!newId.trim()) {
+      setSessionError('Please provide an Academic Session ID (e.g. 2027-28 or 2028-29).');
+      return;
+    }
+    setSessionError('');
+    setSessionSuccess('');
+    setIsSubmitting(true);
+    try {
+      const res = await api('/sessions', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: newId.trim(),
+          label: newLabel.trim() || newId.trim(),
+          isCurrent,
+          description: newDesc.trim()
+        })
+      });
+      setSessionSuccess(res.message || `Academic session '${newId}' added successfully!`);
+      setNewId('');
+      setNewLabel('');
+      setNewDesc('');
+      setIsCurrent(false);
+      await onReloadSessions();
+      if (onReloadAll) onReloadAll();
+    } catch (err) {
+      setSessionError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSetCurrent = async sessionId => {
+    setSessionError('');
+    setSessionSuccess('');
+    try {
+      const res = await api(`/sessions/${sessionId}/set-current`, {
+        method: 'PATCH'
+      });
+      setSessionSuccess(res.message || `Session ${sessionId} set as Current Active.`);
+      await onReloadSessions();
+      if (onReloadAll) onReloadAll();
+    } catch (err) {
+      setSessionError(err.message);
+    }
+  };
+
+  const handleDeleteSession = async sessionId => {
+    if (!confirm(`Are you sure you want to remove academic session '${sessionId}'?`)) return;
+    setSessionError('');
+    setSessionSuccess('');
+    try {
+      const res = await api(`/sessions/${sessionId}`, {
+        method: 'DELETE'
+      });
+      setSessionSuccess(res.message || `Academic session removed.`);
+      await onReloadSessions();
+      if (onReloadAll) onReloadAll();
+    } catch (err) {
+      setSessionError(err.message);
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="event-detail-modal" style={{ maxWidth: '800px' }}>
+        <div className="lightbox-header">
+          <div className="lightbox-title-box">
+            <h2 className="lightbox-title">📅 Academic Session & Batch Management</h2>
+            <div className="lightbox-subtitle">Configure department academic cycles, active years, and archive terms</div>
+          </div>
+          <button className="btn-close-modal" onClick={onClose}>✕</button>
+        </div>
+
+        <div className="detail-body">
+          {sessionError && (
+            <div className="domain-alert-banner warning" style={{ marginBottom: '18px' }}>
+              ⚠️ {sessionError}
+            </div>
+          )}
+
+          {sessionSuccess && (
+            <div className="domain-alert-banner valid" style={{ marginBottom: '18px' }}>
+              ✓ {sessionSuccess}
+            </div>
+          )}
+
+          {/* Form to Add New Academic Session */}
+          <div className="academic-box" style={{ background: 'var(--bg-card)', border: '1px solid var(--cyan-border)', marginBottom: '28px' }}>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--cyan)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>➕</span> Add New Academic Session
+            </h3>
+
+            <form onSubmit={handleCreateSession}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+                <div className="form-group">
+                  <label>Academic Session ID *</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="e.g. 2027-28, 2028-29, 2023-24"
+                    value={newId}
+                    onChange={e => setNewId(e.target.value)}
+                    required
+                  />
+                  <small style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Unique identifier used across reports and certificates</small>
+                </div>
+
+                <div className="form-group">
+                  <label>Display Label (Optional)</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="e.g. 2027-28 (Upcoming) or 2023-24 (Past)"
+                    value={newLabel}
+                    onChange={e => setNewLabel(e.target.value)}
+                  />
+                  <small style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>User-friendly label shown in navigation bars</small>
+                </div>
+              </div>
+
+              <div className="form-group" style={{ marginTop: '12px' }}>
+                <label>Academic Description / Term Focus</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="e.g. Deep Learning, Generative AI & Cloud Analytics Academic Year"
+                  value={newDesc}
+                  onChange={e => setNewDesc(e.target.value)}
+                />
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginTop: '16px', paddingTop: '14px', borderTop: '1px solid var(--line)' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}>
+                  <input
+                    type="checkbox"
+                    checked={isCurrent}
+                    onChange={e => setIsCurrent(e.target.checked)}
+                    style={{ width: '18px', height: '18px', accentColor: 'var(--cyan)' }}
+                  />
+                  <span>Set as Current Active Session (2026-27 / Upcoming)</span>
+                </label>
+
+                <button type="submit" className="btn-primary" disabled={isSubmitting}>
+                  {isSubmitting ? 'Saving Session...' : '+ Add Academic Session'}
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Configured Academic Sessions Table */}
+          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '14px' }}>
+            Configured Academic Sessions ({sessions.length})
+          </h3>
+
+          <div className="data-table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Session ID</th>
+                  <th>Display Label</th>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sessions.map(s => (
+                  <tr key={s.id}>
+                    <td>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--cyan)' }}>
+                        {s.id}
+                      </span>
+                    </td>
+                    <td><strong>{s.label}</strong></td>
+                    <td>
+                      {s.isCurrent ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 10px', background: 'var(--emerald-dim)', color: 'var(--emerald)', border: '1px solid var(--emerald-border)', borderRadius: '99px', fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 700 }}>
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--emerald)' }}></span>
+                          Current Active
+                        </span>
+                      ) : (
+                        <span style={{ padding: '3px 8px', background: 'var(--bg-surface)', color: 'var(--text-muted)', border: '1px solid var(--line)', borderRadius: '99px', fontFamily: 'var(--font-mono)', fontSize: '0.72rem' }}>
+                          📁 Past Archive
+                        </span>
+                      )}
+                    </td>
+                    <td style={{ fontSize: '0.78rem', color: 'var(--text-muted)', maxWidth: '240px' }}>
+                      {s.description || 'Standard Academic Batch'}
+                    </td>
+                    <td>
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        {!s.isCurrent && (
+                          <button
+                            type="button"
+                            className="btn-card-secondary"
+                            onClick={() => handleSetCurrent(s.id)}
+                            title="Set as active year"
+                            style={{ fontSize: '0.74rem', padding: '4px 8px' }}
+                          >
+                            🌟 Set Active
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className="btn-danger-outline"
+                          onClick={() => handleDeleteSession(s.id)}
+                          title="Delete session"
+                          style={{ padding: '4px 8px' }}
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+            <button type="button" className="btn-secondary" onClick={onClose}>
+              Done & Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,8 +1,15 @@
 {
   "sessions": [
     {
+      "id": "2027-28",
+      "label": "2027-28",
+      "isCurrent": false,
+      "year": "2027-2028",
+      "description": "Quantum Computing, LLM Agents & AI Robotics Academic Year"
+    },
+    {
       "id": "2026-27",
-      "label": "Session 2026-27 (Current)",
+      "label": "2026-27 (Current)",
       "isCurrent": true,
       "startDate": "2026-08-01",
       "endDate": "2027-06-30"
