@@ -1,0 +1,1326 @@
+{
+  "sessions": [
+    {
+      "id": "2026-27",
+      "label": "Session 2026-27 (Current)",
+      "isCurrent": true,
+      "startDate": "2026-08-01",
+      "endDate": "2027-06-30"
+    },
+    {
+      "id": "2025-26",
+      "label": "Session 2025-26 (Archived)",
+      "isCurrent": false,
+      "startDate": "2025-08-01",
+      "endDate": "2026-06-30"
+    },
+    {
+      "id": "2024-25",
+      "label": "Session 2024-25 (Archived)",
+      "isCurrent": false,
+      "startDate": "2024-08-01",
+      "endDate": "2025-06-30"
+    }
+  ],
+  "users": [
+    {
+      "id": "committee-hod",
+      "name": "Prof. (Dr.) Sanjay Singh (Updated)",
+      "email": "hod.ds@abes.ac.in",
+      "password": "Admin#DS2026",
+      "role": "committee",
+      "designation": "Head of Department (CSE - Data Science & AI)",
+      "department": "Department of Data Science",
+      "phone": "+91 98111 00111",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "committee-faculty",
+      "name": "Dr. Meenakshi Sharma",
+      "email": "committee.ds@abes.ac.in",
+      "password": "Faculty#DS2026",
+      "role": "committee",
+      "designation": "Associate Professor & Department Event Convener",
+      "department": "Department of Data Science",
+      "phone": "+91 98111 22334",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "student-vaibhav",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.25ds101@abes.ac.in",
+      "password": "Vaibhav#2026",
+      "role": "student",
+      "rollNo": "2500321540101",
+      "branch": "Computer Science & Engineering (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 43210",
+      "section": "DS-A"
+    },
+    {
+      "id": "student-aditi",
+      "name": "Aditi Sharma",
+      "email": "aditi.24ds042@abes.ac.in",
+      "password": "Student#2026",
+      "role": "student",
+      "rollNo": "2400321540042",
+      "branch": "Computer Science & Engineering (Data Science)",
+      "year": "3rd Year",
+      "semester": "5th Sem",
+      "phone": "+91 98222 33445",
+      "section": "DS-B"
+    },
+    {
+      "id": "student-d39c16b6",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.25b15410097@abes.ac.in",
+      "password": "Vaibhav#2026",
+      "role": "student",
+      "rollNo": "2500321540101",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "microsoft-365"
+    },
+    {
+      "id": "student-5d78ed28",
+      "name": "Vaibhav Goyal",
+      "email": "sanjeev.25b15410210@abes.ac.in",
+      "password": "Vaibhav#2026",
+      "role": "student",
+      "rollNo": "2500321540101",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "microsoft-365"
+    },
+    {
+      "id": "student-9b29eabb",
+      "name": "Rohan Sharma",
+      "email": "newstudent.25ds099@abes.ac.in",
+      "password": "df33aeab-8c07-44fb-baad-27204bca7801",
+      "role": "student",
+      "rollNo": "2500321540099",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "microsoft-365-otp"
+    },
+    {
+      "id": "student-d68ae7e2",
+      "name": "Priyanshu",
+      "email": "priyanshu.22b0121045@abes.ac.in",
+      "password": "ee2ae5a0-1657-4549-b67b-f1295f9dd866",
+      "role": "student",
+      "rollNo": "22B0121045",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "microsoft-365-otp"
+    },
+    {
+      "id": "student-5013027e",
+      "name": "Kavya Sharma",
+      "email": "verify.1788334074933@abes.ac.in",
+      "password": "178dd2f6-cade-40a7-bd24-195ac2ebab9e",
+      "role": "student",
+      "rollNo": "2400321540099",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "microsoft-365-otp"
+    },
+    {
+      "id": "student-cb06dc54",
+      "name": "Kavya Sharma",
+      "email": "verify.1788334098839@abes.ac.in",
+      "password": "bb77572c-b422-41c6-9727-09036cc5c03c",
+      "role": "student",
+      "rollNo": "2400321540099",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "microsoft-365-otp"
+    },
+    {
+      "id": "student-9e2f7cf0",
+      "name": "Kavya Sharma",
+      "email": "verify.1788334117465@abes.ac.in",
+      "password": "d39e270f-5104-4fab-b8c0-0bd0081a11c1",
+      "role": "student",
+      "rollNo": "2400321540099",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "microsoft-365-otp"
+    }
+  ],
+  "events": [
+    {
+      "id": "genai-bootcamp-2026",
+      "session": "2026-27",
+      "category": "workshop",
+      "categoryLabel": "Hands-On Workshop",
+      "title": "Generative AI & LLM Architecture Mastery",
+      "tagline": "Practical prompt optimization, LoRA fine-tuning, and RAG pipelines for real-world enterprise AI.",
+      "date": "16–17 October 2026",
+      "time": "10:00 AM – 4:30 PM (2 Days)",
+      "venue": "Nvidia High-Performance AI Lab, Block D (Lab 402)",
+      "capacity": 120,
+      "status": "open",
+      "coordinator": "Dr. Meenakshi Sharma (Faculty Convener, DS Dept)",
+      "speaker": {
+        "name": "Dr. Arindam Mukherjee",
+        "role": "Principal AI Research Scientist",
+        "organization": "Microsoft Research India",
+        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+        "bio": "15+ years experience in Natural Language Processing and Large Scale Foundation Models."
+      },
+      "academicSubject": "KDS-501: Deep Learning & Neural Architectures",
+      "targetAudience": "2nd, 3rd & 4th Year DS Students & Research Scholars",
+      "academicObjectives": [
+        "Demystify Transformer self-attention mathematical formulation and KV-cache optimizations.",
+        "Hands-on execution of Low-Rank Adaptation (LoRA) on open-weight Llama-3 & Mistral models.",
+        "Implement Retrieval Augmented Generation (RAG) using vector databases (Milvus / Pinecone)."
+      ],
+      "keyTakeaways": [
+        "Certificate of Workshop Mastery accredited by ABES DS Department",
+        "Complete Lecture Slides & Academic Case Study Reference Manual",
+        "Access to Departmental GPU Cluster Sandbox for student projects"
+      ],
+      "pptSlides": {
+        "title": "GenAI_LLM_Architecture_ABES_DS_2026.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vR-SampleGenAISlides/pub",
+        "fileSize": "18.4 MB (48 Slides)",
+        "downloadName": "GenAI_DeepLearning_Slides_2026.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "Transformer Attention Mechanics - Research Handout",
+          "type": "Lecture Notes PDF",
+          "size": "3.2 MB"
+        },
+        {
+          "title": "LoRA Fine-Tuning Parameter Guide",
+          "type": "Lab Manual",
+          "size": "1.8 MB"
+        },
+        {
+          "title": "Vector Embeddings & Semantic Search Benchmark",
+          "type": "Academic Reference",
+          "size": "4.5 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-gen-1",
+          "url": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Dr. Arindam Mukherjee explaining Multi-Head Attention mechanisms to students in Audi 1",
+          "photographer": "DS Media Cell",
+          "takenAt": "Day 1 - Morning Keynote"
+        },
+        {
+          "id": "p-gen-2",
+          "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Students collaborating on hands-on fine-tuning in Nvidia AI Compute Lab 402",
+          "photographer": "DS Student Council",
+          "takenAt": "Day 1 - Lab Session"
+        },
+        {
+          "id": "p-gen-3",
+          "url": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=85",
+          "caption": "HOD Prof. Dr. Sanjay Singh presenting commemorative plaque to Microsoft Research lead",
+          "photographer": "ABES Central Media",
+          "takenAt": "Valedictory Ceremony"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "10:00 AM",
+          "title": "Inauguration & Welcome Address by HOD",
+          "location": "Audi Block D"
+        },
+        {
+          "time": "11:00 AM",
+          "title": "Session 1: Mathematical Foundations of Attention & Transformers",
+          "location": "Seminar Hall 2"
+        },
+        {
+          "time": "01:30 PM",
+          "title": "Networking Lunch & Poster Interaction",
+          "location": "Foyer C"
+        },
+        {
+          "time": "02:30 PM",
+          "title": "Session 2: Hands-on Lab: Quantization & LoRA Implementation",
+          "location": "AI Lab 402"
+        },
+        {
+          "time": "04:30 PM",
+          "title": "Interactive Q&A & Certificate Distribution",
+          "location": "Audi Block D"
+        }
+      ],
+      "announcements": [
+        {
+          "id": "ann-ds-1",
+          "text": "Lab workstations have been pre-provisioned with PyTorch 2.4 and CUDA 12.1. Bring your ABES ID pass.",
+          "timestamp": "2026-10-14T09:30:00Z",
+          "author": "Event Committee"
+        }
+      ]
+    },
+    {
+      "id": "datacon-symposium-2026",
+      "session": "2026-27",
+      "category": "event",
+      "categoryLabel": "National Symposium",
+      "title": "ABES DataCon 2026: National Data Science & AI Colloquium",
+      "tagline": "The annual flagship congregation of data leaders, academic researchers, and student innovators.",
+      "date": "24–25 November 2026",
+      "time": "9:30 AM – 5:30 PM",
+      "venue": "Kalpana Chawla Central Auditorium & DS Dept Exhibition Gallery",
+      "capacity": 350,
+      "status": "open",
+      "coordinator": "Prof. (Dr.) Sanjay Singh (HOD) & DS Core Committee",
+      "speaker": {
+        "name": "Prof. K. R. Ramanathan & Panel of 6 Industry VPs",
+        "role": "Dean of AI & Data Engineering",
+        "organization": "IIT Delhi & NASSCOM AI Council",
+        "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        "bio": "Distinguished academician with over 120+ published papers in IEEE/ACM transactions."
+      },
+      "academicSubject": "Research Methodology & Applied Data Science Innovations",
+      "targetAudience": "All Engineering Streams & Faculty Members across AKTU",
+      "academicObjectives": [
+        "Showcase peer-reviewed student research projects in predictive modeling, edge AI, and bioinformatics.",
+        "Panel discussion on 'The Next Decade of Autonomous Data Agents & Responsible AI Governance'.",
+        "Industry-Academia matchmaking for high-impact capstone project sponsorships."
+      ],
+      "keyTakeaways": [
+        "Published Proceedings with ISBN Indexing for selected student papers",
+        "Official Participation Memento & Verified Academic Certificate",
+        "Direct Research Internship Interviews with corporate partners"
+      ],
+      "pptSlides": {
+        "title": "DataCon_2026_Keynote_Proceedings.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vDataCon2026/pub",
+        "fileSize": "32.1 MB (85 Slides)",
+        "downloadName": "ABES_DataCon_2026_Keynote_Deck.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "DataCon 2026 Abstract Book & Research Schedule",
+          "type": "Conference Booklet",
+          "size": "6.8 MB"
+        },
+        {
+          "title": "IEEE Citation Style Guide for Student Submissions",
+          "type": "Formatting Guidelines",
+          "size": "1.2 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-dc-1",
+          "url": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Grand opening lamp lighting by dignitaries and Dean Academics at Kalpana Chawla Audi",
+          "photographer": "DS Media Team",
+          "takenAt": "Inaugural Ceremony"
+        },
+        {
+          "id": "p-dc-2",
+          "url": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Panel Discussion: Future of Generative Data Systems with Industry Experts from Amazon & Google",
+          "photographer": "Public Relations Cell",
+          "takenAt": "Executive Plenary"
+        },
+        {
+          "id": "p-dc-3",
+          "url": "https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Students presenting capstone projects to corporate jury members in Department Exhibition Hall",
+          "photographer": "DS Technical Cell",
+          "takenAt": "Project Expo"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "09:30 AM",
+          "title": "Lamp Lighting & Keynote Address",
+          "location": "Central Auditorium"
+        },
+        {
+          "time": "11:15 AM",
+          "title": "Track A: HealthTech & AI; Track B: Financial Analytics",
+          "location": "Seminar Halls A & B"
+        },
+        {
+          "time": "02:00 PM",
+          "title": "Department Project Expo & Poster Evaluations",
+          "location": "DS Block Foyer"
+        },
+        {
+          "time": "04:30 PM",
+          "title": "Felicitation & Best Paper Award Distribution",
+          "location": "Central Auditorium"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "msft-visit-2026",
+      "session": "2026-27",
+      "category": "industry_visit",
+      "categoryLabel": "Industry Visit",
+      "title": "Industrial Field Immersion: Microsoft India Development Center (IDC)",
+      "tagline": "Exclusive on-site exposure to enterprise cloud architecture, hyperscale data pipelines, and AI engineering.",
+      "date": "08 December 2026",
+      "time": "8:00 AM – 6:00 PM",
+      "venue": "Microsoft IDC Campus, Sector 135, Noida",
+      "capacity": 60,
+      "status": "open",
+      "coordinator": "Dr. Rohit Verma (Training & Placement Coordinator, DS Dept)",
+      "speaker": {
+        "name": "Er. Sneha Kapoor",
+        "role": "Director of Azure Data Engineering",
+        "organization": "Microsoft India",
+        "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+        "bio": "Alumna & engineering leader driving enterprise Azure Synapse & Fabric telemetry."
+      },
+      "academicSubject": "KDS-602: Cloud Computing & Big Data Infrastructure",
+      "targetAudience": "3rd & 4th Year B.Tech Data Science Undergraduates",
+      "academicObjectives": [
+        "Observe industrial-grade fault-tolerant distributed data storage and streaming architectures.",
+        "Interact with Azure Data Engineering team leads on high-velocity data streaming (Kafka + Event Hubs).",
+        "Understand corporate software development lifecycle (SDLC) and CI/CD for machine learning pipelines."
+      ],
+      "keyTakeaways": [
+        "Official Industrial Visit Certificate endorsed by Microsoft IDC & ABES",
+        "Comprehensive Industrial Visit Technical Report template for AKTU semester evaluation",
+        "Direct networking with campus hiring managers & alumni at Microsoft"
+      ],
+      "pptSlides": {
+        "title": "Microsoft_IDC_Azure_Data_Architecture_Overview.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vMsftIDCArchitecture/pub",
+        "fileSize": "14.2 MB (36 Slides)",
+        "downloadName": "Microsoft_IDC_Industrial_Visit_Briefing.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "Industrial Visit Pre-Read: Azure Synapse & Lakehouse",
+          "type": "Study Brief",
+          "size": "2.4 MB"
+        },
+        {
+          "title": "Department Industry Visit Report Guidelines & Rubric",
+          "type": "Academic Rubric",
+          "size": "1.1 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-ms-1",
+          "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=85",
+          "caption": "DS Department student delegation at the Microsoft Executive Briefing Center",
+          "photographer": "Placement & Visit Cell",
+          "takenAt": "Microsoft Campus Lobby"
+        },
+        {
+          "id": "p-ms-2",
+          "url": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Engineering Tech Talk on Azure Fabric and Data Mesh by Senior Solution Architects",
+          "photographer": "Student Reporter",
+          "takenAt": "IDC Auditorium"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "08:00 AM",
+          "title": "Reporting at ABES Main Gate & Bus Departure",
+          "location": "Gate No. 1"
+        },
+        {
+          "time": "09:30 AM",
+          "title": "Security Check & Welcome Briefing at Microsoft IDC",
+          "location": "Reception Lobby"
+        },
+        {
+          "time": "10:30 AM",
+          "title": "Tech Talk: Hyperscale Data Pipelines & Copilot Ecosystem",
+          "location": "Briefing Room 3A"
+        },
+        {
+          "time": "01:00 PM",
+          "title": "Lunch & Alumni Interaction at Corporate Cafeteria",
+          "location": "Level 4 Hub"
+        },
+        {
+          "time": "02:30 PM",
+          "title": "Lab Tour & Data Infrastructure Walkthrough",
+          "location": "R&D Wing"
+        },
+        {
+          "time": "04:30 PM",
+          "title": "Q&A, Feedback & Boarding Return Coach",
+          "location": "Main Entrance"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "quantum-ml-seminar-2026",
+      "session": "2026-27",
+      "category": "seminar",
+      "categoryLabel": "Expert Seminar",
+      "title": "Quantum Computing & Quantum Machine Learning (QML)",
+      "tagline": "Bridging quantum state superposition with variational quantum eigensolvers for next-gen data science.",
+      "date": "18 January 2027",
+      "time": "2:00 PM – 5:00 PM",
+      "venue": "Sir C.V. Raman Seminar Hall, Block B",
+      "capacity": 150,
+      "status": "upcoming",
+      "coordinator": "Dr. Priyanka Garg (Assistant Professor, DS Dept)",
+      "speaker": {
+        "name": "Dr. T. Venkatraman",
+        "role": "Chief Quantum Algorithms Researcher",
+        "organization": "TIFR & IBM Quantum Network",
+        "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
+        "bio": "Lead researcher working on hybrid classical-quantum algorithms and Qiskit toolchains."
+      },
+      "academicSubject": "KDS-061: Quantum Information & Computational Science",
+      "targetAudience": "3rd & 4th Year Undergraduates, Postgraduates & Faculty",
+      "academicObjectives": [
+        "Understand Qubit representation, entanglement, and Quantum Fourier Transforms.",
+        "Study Parameterized Quantum Circuits (PQCs) for data classification.",
+        "Demonstrate IBM Qiskit software library integration with PyTorch."
+      ],
+      "keyTakeaways": [
+        "Certificate of Seminar Attendance with AKTU Co-Curricular Credits",
+        "Presentation Slide Deck with Qiskit Code Snippets & Mathematical Derivations",
+        "Reading list for Quantum Computing certifications"
+      ],
+      "pptSlides": {
+        "title": "Quantum_Machine_Learning_Foundations_ABES.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vQuantumMLSeminar2026/pub",
+        "fileSize": "22.6 MB (52 Slides)",
+        "downloadName": "QML_Foundations_Seminar_Deck.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "Quantum Gates & Circuit Math Cheatsheet",
+          "type": "Reference Notes",
+          "size": "1.9 MB"
+        },
+        {
+          "title": "Qiskit Hybrid Optimization Lab Guide",
+          "type": "Monograph",
+          "size": "3.4 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-qml-1",
+          "url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Dr. Venkatraman explaining Bloch Sphere quantum state transformations",
+          "photographer": "DS Media Team",
+          "takenAt": "Raman Hall"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "02:00 PM",
+          "title": "Welcome Address & Speaker Introduction",
+          "location": "C.V. Raman Hall"
+        },
+        {
+          "time": "02:15 PM",
+          "title": "Lecture 1: The Quantum Leap — Qubits vs Classical Bits",
+          "location": "C.V. Raman Hall"
+        },
+        {
+          "time": "03:30 PM",
+          "title": "Tea Break & Technical Discussion",
+          "location": "Seminar Hall Foyer"
+        },
+        {
+          "time": "03:45 PM",
+          "title": "Lecture 2: Variational Quantum Classifiers & QML Futures",
+          "location": "C.V. Raman Hall"
+        },
+        {
+          "time": "04:45 PM",
+          "title": "Vote of Thanks & Certificate Distribution",
+          "location": "C.V. Raman Hall"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "cv-healthcare-2025",
+      "session": "2025-26",
+      "category": "workshop",
+      "categoryLabel": "Specialized Workshop",
+      "title": "Computer Vision & Medical Imaging Diagnostics",
+      "tagline": "Convolutional neural networks, semantic segmentation (U-Net), and 3D MRI diagnostic imaging pipelines.",
+      "date": "21–22 November 2025",
+      "time": "10:00 AM – 4:30 PM",
+      "venue": "Data Science Advanced Compute Lab 401, Block D",
+      "capacity": 100,
+      "status": "completed",
+      "coordinator": "Dr. Meenakshi Sharma & Prof. Sanjay Singh",
+      "speaker": {
+        "name": "Dr. Shweta Rastogi",
+        "role": "Chief Biomedical AI Scientist",
+        "organization": "MedTech AI Labs & AIIMS Research Affiliate",
+        "avatar": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80",
+        "bio": "Pioneer in automated tumor segmentation and computer-aided pathology diagnostics."
+      },
+      "academicSubject": "KDS-502: Computer Vision & Pattern Recognition",
+      "targetAudience": "3rd & 4th Year B.Tech Data Science Students",
+      "academicObjectives": [
+        "Pre-processing DICOM medical imagery and implementing spatial augmentations.",
+        "Training U-Net and Mask R-CNN architectures for multi-class lesion segmentation.",
+        "Evaluating classification metrics for imbalanced clinical diagnostic datasets."
+      ],
+      "keyTakeaways": [
+        "Verified Departmental Certificate of Medical CV Specialization",
+        "Curated Academic PPT Slides on Medical Image Processing",
+        "Clinical Dataset Handling Guidelines adhering to HIPAA data privacy"
+      ],
+      "pptSlides": {
+        "title": "Medical_Computer_Vision_UNet_ABES_2025.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vMedicalCVWorkshop2025/pub",
+        "fileSize": "28.5 MB (60 Slides)",
+        "downloadName": "Medical_CV_Healthcare_Slides_2025.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "U-Net Medical Segmentation Math Derivation",
+          "type": "Lecture Notes",
+          "size": "4.1 MB"
+        },
+        {
+          "title": "DICOM Header Analysis in Python - Quick Ref",
+          "type": "Lab Notes",
+          "size": "1.5 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-cv-1",
+          "url": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Dr. Shweta demonstrating automated MRI tumor edge detection algorithm",
+          "photographer": "DS Department Press",
+          "takenAt": "Lab 401 Session"
+        },
+        {
+          "id": "p-cv-2",
+          "url": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Students analyzing radiograph segmentation matrices on dual monitor workstations",
+          "photographer": "DS Media Team",
+          "takenAt": "Lab 401 Hands-on"
+        },
+        {
+          "id": "p-cv-3",
+          "url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Group photo of workshop participants with HOD and guest speakers",
+          "photographer": "ABES Official",
+          "takenAt": "Valedictory"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "10:00 AM",
+          "title": "Keynote: AI in Clinical Radiology",
+          "location": "Audi Block D"
+        },
+        {
+          "time": "11:30 AM",
+          "title": "Lab 1: DICOM Processing & Contrast Normalization",
+          "location": "Lab 401"
+        },
+        {
+          "time": "02:00 PM",
+          "title": "Lab 2: U-Net Architecture Training from Scratch",
+          "location": "Lab 401"
+        },
+        {
+          "time": "04:00 PM",
+          "title": "Result Evaluation & Certificate Distribution",
+          "location": "Audi Block D"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "intel-visit-2025",
+      "session": "2025-26",
+      "category": "industry_visit",
+      "categoryLabel": "Industry Visit",
+      "title": "Industrial Exposure: Intel AI Center of Excellence, Gurugram",
+      "tagline": "Exploration of OpenVINO toolkit, neural accelerator silicon hardware, and edge AI inference.",
+      "date": "14 February 2026",
+      "time": "8:30 AM – 5:30 PM",
+      "venue": "Intel Technology India, Cyber City, Gurugram",
+      "capacity": 55,
+      "status": "completed",
+      "coordinator": "Dr. Rohit Verma (Placement Lead)",
+      "speaker": {
+        "name": "Er. Alok Ranjan",
+        "role": "Principal Hardware Architect & AI Evangelist",
+        "organization": "Intel Corporation",
+        "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+        "bio": "Leading Intel OneAPI and OpenVINO hardware acceleration enablement across Asia Pacific."
+      },
+      "academicSubject": "KDS-603: High Performance Computing & Edge AI",
+      "targetAudience": "3rd Year B.Tech Data Science Students",
+      "academicObjectives": [
+        "Understand heterogeneous compute architectures (CPUs, GPUs, NPUs, and FPGAs).",
+        "Model quantization and optimization using Intel OpenVINO runtime.",
+        "Observe industrial autonomous robotics and smart camera vision setups."
+      ],
+      "keyTakeaways": [
+        "Intel Industrial Visit Completion Certificate",
+        "Comprehensive Industry Visit Report submitted for Academic Assessment",
+        "Intel OneAPI Developer Toolkit free certification pathway"
+      ],
+      "pptSlides": {
+        "title": "Intel_OpenVINO_Edge_AI_Industrial_Briefing.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vIntelVisit2025/pub",
+        "fileSize": "19.8 MB (44 Slides)",
+        "downloadName": "Intel_AI_Industry_Visit_Slides.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "OpenVINO Model Optimizer Quickstart Guide",
+          "type": "Manual",
+          "size": "2.9 MB"
+        },
+        {
+          "title": "AKTU Industry Visit Academic Evaluation Rubric",
+          "type": "Evaluation Sheet",
+          "size": "0.9 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-int-1",
+          "url": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Students exploring Intel Edge AI demo pods and real-time vision analytics",
+          "photographer": "DS Council",
+          "takenAt": "Intel Experience Lab"
+        },
+        {
+          "id": "p-int-2",
+          "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Interactive Q&A on NPU silicon acceleration with Intel Chief Architect",
+          "photographer": "ABES T&P Cell",
+          "takenAt": "Intel Briefing Room"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "08:30 AM",
+          "title": "Departure from College Campus",
+          "location": "Gate 1"
+        },
+        {
+          "time": "10:30 AM",
+          "title": "Security Check-In & Corporate Video",
+          "location": "Intel Auditorium"
+        },
+        {
+          "time": "11:30 AM",
+          "title": "Session: Silicon Architecture for Modern Deep Learning",
+          "location": "Intel Tech Hall"
+        },
+        {
+          "time": "01:30 PM",
+          "title": "Executive Lunch & Mentorship Chat",
+          "location": "Dining Hall"
+        },
+        {
+          "time": "02:45 PM",
+          "title": "Experience Zone Walkthrough & Robotics Demo",
+          "location": "Demo Pavilion"
+        },
+        {
+          "time": "04:30 PM",
+          "title": "Return Coach Journey to College",
+          "location": "Departure Bay"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "spark-bigdata-2025",
+      "session": "2025-26",
+      "category": "seminar",
+      "categoryLabel": "Technical Seminar",
+      "title": "Distributed Big Data Engineering with Apache Spark & Iceberg",
+      "tagline": "Handling multi-terabyte data streams, partitioning strategies, and modern Lakehouse storage architectures.",
+      "date": "19 September 2025",
+      "time": "1:30 PM – 5:00 PM",
+      "venue": "Ramanujan Seminar Hall, Block B",
+      "capacity": 140,
+      "status": "completed",
+      "coordinator": "Dr. Priyanka Garg (DS Dept)",
+      "speaker": {
+        "name": "Er. Vikas Chawla",
+        "role": "Staff Data Engineer",
+        "organization": "Walmart Global Tech",
+        "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        "bio": "Overseeing real-time catalog analytics processing 40M events per second."
+      },
+      "academicSubject": "KDS-503: Big Data Systems & NoSQL Data Stores",
+      "targetAudience": "2nd, 3rd & 4th Year DS Students",
+      "academicObjectives": [
+        "Resilient Distributed Datasets (RDDs) vs Spark DataFrames optimization.",
+        "Catalyst optimizer and Tungsten execution engine internal mechanics.",
+        "ACID transactions on Apache Iceberg data lakes."
+      ],
+      "keyTakeaways": [
+        "Seminar Attendance Certificate",
+        "Full Seminar Slide Deck & Data Lake Architectural Diagrams",
+        "Big Data Engineer career guide & recommended reading"
+      ],
+      "pptSlides": {
+        "title": "Apache_Spark_Iceberg_BigData_Architecture_2025.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vSparkBigData2025/pub",
+        "fileSize": "16.4 MB (40 Slides)",
+        "downloadName": "Apache_Spark_BigData_Lecture_Slides.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "Spark Partitioning & Memory Tuning Checklist",
+          "type": "Cheatsheet",
+          "size": "2.1 MB"
+        },
+        {
+          "title": "Lakehouse vs Data Warehouse Comparison Monograph",
+          "type": "Academic Notes",
+          "size": "3.5 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-sp-1",
+          "url": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Er. Vikas Chawla detailing Spark Catalyst query optimization plans",
+          "photographer": "DS Technical Cell",
+          "takenAt": "Ramanujan Hall"
+        },
+        {
+          "id": "p-sp-2",
+          "url": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Students taking notes during the Lakehouse architecture case study",
+          "photographer": "Media Cell",
+          "takenAt": "Auditorium View"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "01:30 PM",
+          "title": "Welcome Address & Speaker Introduction",
+          "location": "Ramanujan Hall"
+        },
+        {
+          "time": "01:45 PM",
+          "title": "Part 1: The Evolution of Big Data Architecture",
+          "location": "Ramanujan Hall"
+        },
+        {
+          "time": "03:15 PM",
+          "title": "High Tea & Faculty Networking",
+          "location": "Seminar Hall Foyer"
+        },
+        {
+          "time": "03:45 PM",
+          "title": "Part 2: Deep Dive into Apache Iceberg Tables",
+          "location": "Ramanujan Hall"
+        },
+        {
+          "time": "04:45 PM",
+          "title": "Q&A Session & Certificate Issuance",
+          "location": "Ramanujan Hall"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "powerbi-analytics-2024",
+      "session": "2024-25",
+      "category": "workshop",
+      "categoryLabel": "Hands-On Workshop",
+      "title": "Industrial Business Intelligence & Power BI Masterclass",
+      "tagline": "End-to-end DAX formulas, interactive KPI dashboards, and enterprise ETL pipelines.",
+      "date": "11–12 October 2024",
+      "time": "10:00 AM – 4:00 PM",
+      "venue": "Data Science Computing Lab 403, Block D",
+      "capacity": 90,
+      "status": "completed",
+      "coordinator": "Dr. Meenakshi Sharma (DS Dept)",
+      "speaker": {
+        "name": "Ms. Pallavi Kashyap",
+        "role": "Lead BI Consultant",
+        "organization": "Deloitte USI",
+        "avatar": "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80",
+        "bio": "Certified Power BI & Tableau enterprise analytics trainer."
+      },
+      "academicSubject": "KDS-401: Data Visualization & Business Analytics",
+      "targetAudience": "2nd & 3rd Year Data Science Students",
+      "academicObjectives": [
+        "Data transformation & cleansing in Power Query editor.",
+        "Writing complex DAX calculated columns and dynamic measures.",
+        "Designing responsive executive dashboards with drill-through filters."
+      ],
+      "keyTakeaways": [
+        "Department Verified Certificate of Power BI Competence",
+        "Official Deloitte Case Study Slide Deck & PowerBI Template PBIX Files",
+        "Data Visualization Best Practices Guide"
+      ],
+      "pptSlides": {
+        "title": "PowerBI_Enterprise_Analytics_Deloitte_ABES_2024.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vPowerBIWorkshop2024/pub",
+        "fileSize": "21.0 MB (45 Slides)",
+        "downloadName": "PowerBI_Masterclass_Slides_2024.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "DAX Functions & Formulas Reference Sheet",
+          "type": "Cheatsheet",
+          "size": "1.7 MB"
+        },
+        {
+          "title": "Sample Retail Analytics Raw Dataset",
+          "type": "Dataset CSV",
+          "size": "8.4 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-pbi-1",
+          "url": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Ms. Pallavi mentoring students during live DAX measure calculation",
+          "photographer": "DS Lab Cell",
+          "takenAt": "Lab 403"
+        },
+        {
+          "id": "p-pbi-2",
+          "url": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Students demonstrating their financial KPI dashboard to jury",
+          "photographer": "DS Council",
+          "takenAt": "Lab 403 Presentation"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "10:00 AM",
+          "title": "Data Modeling Fundamentals & Star Schema",
+          "location": "Lab 403"
+        },
+        {
+          "time": "11:30 AM",
+          "title": "Power Query ETL & Data Cleansing",
+          "location": "Lab 403"
+        },
+        {
+          "time": "01:30 PM",
+          "title": "Lunch Break",
+          "location": "Cafeteria"
+        },
+        {
+          "time": "02:15 PM",
+          "title": "Advanced DAX & Interactive KPI Visuals",
+          "location": "Lab 403"
+        },
+        {
+          "time": "03:45 PM",
+          "title": "Certificate Distribution & Project Showcase",
+          "location": "Lab 403"
+        }
+      ],
+      "announcements": []
+    },
+    {
+      "id": "ibm-visit-2024",
+      "session": "2024-25",
+      "category": "industry_visit",
+      "categoryLabel": "Industry Visit",
+      "title": "Industrial Immersion: IBM Innovation & Quantum Hub, Noida",
+      "tagline": "Exploration of IBM WatsonX, enterprise hybrid cloud, and quantum computing hardware simulators.",
+      "date": "28 February 2025",
+      "time": "9:00 AM – 5:00 PM",
+      "venue": "IBM India Pvt Ltd, Candor TechSpace, Sector 62, Noida",
+      "capacity": 50,
+      "status": "completed",
+      "coordinator": "Dr. Rohit Verma & Prof. Sanjay Singh",
+      "speaker": {
+        "name": "Dr. Rajiv Singhal",
+        "role": "Executive Client Architect",
+        "organization": "IBM India",
+        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+        "bio": "IBM Master Inventor with 30+ US patents in cognitive computing and Watson systems."
+      },
+      "academicSubject": "KDS-402: Applied Artificial Intelligence & Cognitive Computing",
+      "targetAudience": "2nd & 3rd Year B.Tech Data Science Undergraduates",
+      "academicObjectives": [
+        "Hands-on demonstration of IBM WatsonX.ai foundation model training.",
+        "Observe enterprise data security and governance framework deployments.",
+        "Understand real-time server rack virtualization and hybrid cloud data fabric."
+      ],
+      "keyTakeaways": [
+        "IBM Verified Industrial Visit Certificate",
+        "Official IBM WatsonX Architecture Presentation Slide Deck",
+        "Detailed Academic Industry Visit Logbook submission for internal grading"
+      ],
+      "pptSlides": {
+        "title": "IBM_WatsonX_Hybrid_Cloud_Architecture_2024.pptx",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vIBMHUBNoida2024/pub",
+        "fileSize": "25.2 MB (50 Slides)",
+        "downloadName": "IBM_Innovation_Hub_Visit_Slides.pdf"
+      },
+      "academicResources": [
+        {
+          "title": "IBM WatsonX Governance Framework Summary",
+          "type": "Monograph",
+          "size": "3.1 MB"
+        },
+        {
+          "title": "Industrial Visit Report Template - ABES DS Department",
+          "type": "Evaluation Sheet",
+          "size": "1.2 MB"
+        }
+      ],
+      "coverPhoto": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=85",
+      "photos": [
+        {
+          "id": "p-ibm-1",
+          "url": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=85",
+          "caption": "DS students at IBM Innovation Center foyer before the WatsonX briefing",
+          "photographer": "DS T&P Cell",
+          "takenAt": "IBM Foyer"
+        },
+        {
+          "id": "p-ibm-2",
+          "url": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Dr. Rajiv Singhal presenting IBM Quantum System One scale model to students",
+          "photographer": "Student Reporter",
+          "takenAt": "IBM Quantum Lounge"
+        }
+      ],
+      "schedule": [
+        {
+          "time": "09:00 AM",
+          "title": "Arrival at Candor TechSpace & Badge Security",
+          "location": "IBM Gate 2"
+        },
+        {
+          "time": "10:00 AM",
+          "title": "Presentation: WatsonX AI and Enterprise Data Governance",
+          "location": "Briefing Room 1"
+        },
+        {
+          "time": "12:30 PM",
+          "title": "Lunch at IBM Cafeteria with Senior Engineers",
+          "location": "Dining Hall"
+        },
+        {
+          "time": "02:00 PM",
+          "title": "Tour of Hybrid Cloud Server Infrastructure & Quantum Simulation Lab",
+          "location": "R&D Wing"
+        },
+        {
+          "time": "04:30 PM",
+          "title": "Felicitation & Departure back to Campus",
+          "location": "Main Entrance"
+        }
+      ],
+      "announcements": []
+    }
+  ],
+  "registrations": [
+    {
+      "id": "reg-ds-1",
+      "eventId": "genai-bootcamp-2026",
+      "userId": "student-vaibhav",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.25ds101@abes.ac.in",
+      "rollNo": "2500321540101",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 43210",
+      "ticketCode": "DS-GEN-2026-9142",
+      "checkedIn": true,
+      "checkedInAt": "2026-10-16T09:45:00Z",
+      "certificateIssued": true,
+      "certificateId": "CERT-DS-2026-GEN-8812",
+      "registeredAt": "2026-09-02T10:15:00Z"
+    },
+    {
+      "id": "reg-ds-2",
+      "eventId": "datacon-symposium-2026",
+      "userId": "student-vaibhav",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.25ds101@abes.ac.in",
+      "rollNo": "2500321540101",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 43210",
+      "ticketCode": "DS-CON-2026-4401",
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": false,
+      "certificateId": null,
+      "registeredAt": "2026-09-02T11:00:00Z"
+    },
+    {
+      "id": "reg-ds-3",
+      "eventId": "cv-healthcare-2025",
+      "userId": "student-vaibhav",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.25ds101@abes.ac.in",
+      "rollNo": "2500321540101",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 43210",
+      "ticketCode": "DS-CV-2025-1029",
+      "checkedIn": true,
+      "checkedInAt": "2025-11-21T09:50:00Z",
+      "certificateIssued": true,
+      "certificateId": "CERT-DS-2025-CV-3104",
+      "registeredAt": "2025-11-10T14:30:00Z"
+    },
+    {
+      "id": "reg-ds-4",
+      "eventId": "genai-bootcamp-2026",
+      "userId": "student-aditi",
+      "name": "Aditi Sharma",
+      "email": "aditi.24ds042@abes.ac.in",
+      "rollNo": "2400321540042",
+      "branch": "CSE (Data Science)",
+      "year": "3rd Year",
+      "semester": "5th Sem",
+      "phone": "+91 98222 33445",
+      "ticketCode": "DS-GEN-2026-7731",
+      "checkedIn": true,
+      "checkedInAt": "2026-10-16T09:52:00Z",
+      "certificateIssued": true,
+      "certificateId": "CERT-DS-2026-GEN-8813",
+      "registeredAt": "2026-09-01T16:20:00Z"
+    },
+    {
+      "id": "reg-ds-5",
+      "eventId": "intel-visit-2025",
+      "userId": "student-aditi",
+      "name": "Aditi Sharma",
+      "email": "aditi.24ds042@abes.ac.in",
+      "rollNo": "2400321540042",
+      "branch": "CSE (Data Science)",
+      "year": "3rd Year",
+      "semester": "5th Sem",
+      "phone": "+91 98222 33445",
+      "ticketCode": "DS-INT-2025-5591",
+      "checkedIn": true,
+      "checkedInAt": "2026-02-14T08:25:00Z",
+      "certificateIssued": true,
+      "certificateId": "CERT-DS-2025-INT-9901",
+      "registeredAt": "2026-02-01T12:00:00Z"
+    },
+    {
+      "id": "reg-ds-b961214f",
+      "eventId": "genai-bootcamp-2026",
+      "userId": "student-5d78ed28",
+      "name": "Vaibhav Goyal",
+      "email": "sanjeev.25b15410210@abes.ac.in",
+      "rollNo": "2500321540101",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "ticketCode": "DS-WOR-2026-9455",
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": false,
+      "certificateId": null,
+      "registeredAt": "2026-09-02T07:04:41.032Z"
+    },
+    {
+      "id": "reg-ds-b8f2bd44",
+      "eventId": "genai-bootcamp-2026",
+      "userId": "student-d68ae7e2",
+      "name": "Priyanshu",
+      "email": "priyanshu.22b0121045@abes.ac.in",
+      "rollNo": "22B0121045",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "ticketCode": "DS-WOR-2026-8503",
+      "isPaid": false,
+      "fee": 0,
+      "paymentStatus": "free",
+      "paymentScreenshot": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "utrNumber": "428901928374",
+      "paidAmount": 0,
+      "paymentSubmittedAt": "2026-09-02T07:27:22.063Z",
+      "paymentVerifiedAt": null,
+      "paymentVerifiedBy": null,
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": false,
+      "certificateId": null,
+      "registeredAt": "2026-09-02T07:27:22.063Z"
+    },
+    {
+      "id": "reg-ds-57f78161",
+      "eventId": "genai-bootcamp-2026",
+      "userId": "student-5013027e",
+      "name": "Kavya Sharma",
+      "email": "verify.1788334074933@abes.ac.in",
+      "rollNo": "2400321540099",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "ticketCode": "DS-WOR-2026-8184",
+      "isPaid": false,
+      "fee": 0,
+      "paymentStatus": "free",
+      "paymentScreenshot": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "utrNumber": "428901928374",
+      "paidAmount": 0,
+      "paymentSubmittedAt": "2026-09-02T07:27:54.971Z",
+      "paymentVerifiedAt": null,
+      "paymentVerifiedBy": null,
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": false,
+      "certificateId": null,
+      "registeredAt": "2026-09-02T07:27:54.971Z"
+    },
+    {
+      "id": "reg-ds-afd42c6e",
+      "eventId": "genai-bootcamp-2026",
+      "userId": "student-cb06dc54",
+      "name": "Kavya Sharma",
+      "email": "verify.1788334098839@abes.ac.in",
+      "rollNo": "2400321540099",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "ticketCode": "DS-WOR-2026-3123",
+      "isPaid": false,
+      "fee": 0,
+      "paymentStatus": "verified",
+      "paymentScreenshot": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "utrNumber": "428901928374",
+      "paidAmount": 0,
+      "paymentSubmittedAt": "2026-09-02T07:28:18.877Z",
+      "paymentVerifiedAt": "2026-09-02T07:28:18.884Z",
+      "paymentVerifiedBy": "Dr. Meenakshi Sharma",
+      "checkedIn": true,
+      "checkedInAt": "2026-09-02T07:28:18.881Z",
+      "certificateIssued": false,
+      "certificateId": null,
+      "registeredAt": "2026-09-02T07:28:18.877Z"
+    },
+    {
+      "id": "reg-ds-a0e89059",
+      "eventId": "genai-bootcamp-2026",
+      "userId": "student-9e2f7cf0",
+      "name": "Kavya Sharma",
+      "email": "verify.1788334117465@abes.ac.in",
+      "rollNo": "2400321540099",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "ticketCode": "DS-WOR-2026-5523",
+      "isPaid": false,
+      "fee": 0,
+      "paymentStatus": "verified",
+      "paymentScreenshot": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "utrNumber": "428901928374",
+      "paidAmount": 0,
+      "paymentSubmittedAt": "2026-09-02T07:28:37.514Z",
+      "paymentVerifiedAt": "2026-09-02T07:28:37.520Z",
+      "paymentVerifiedBy": "Dr. Meenakshi Sharma",
+      "checkedIn": true,
+      "checkedInAt": "2026-09-02T07:28:37.518Z",
+      "certificateIssued": false,
+      "certificateId": null,
+      "registeredAt": "2026-09-02T07:28:37.514Z"
+    },
+    {
+      "id": "reg-ds-a5e2dbfa",
+      "eventId": "msft-visit-2026",
+      "userId": "student-vaibhav",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.25ds101@abes.ac.in",
+      "rollNo": "2500321540101",
+      "branch": "Computer Science & Engineering (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 43210",
+      "section": "DS-A",
+      "ticketCode": "DS-IND-2026-4433",
+      "isPaid": false,
+      "fee": 0,
+      "paymentStatus": "free",
+      "paymentScreenshot": null,
+      "utrNumber": null,
+      "paidAmount": 0,
+      "paymentSubmittedAt": null,
+      "paymentVerifiedAt": null,
+      "paymentVerifiedBy": null,
+      "checkedIn": false,
+      "checkedInAt": null,
+      "certificateIssued": false,
+      "certificateId": null,
+      "registeredAt": "2026-09-02T07:32:58.112Z"
+    }
+  ],
+  "saved": [
+    {
+      "userId": "student-vaibhav",
+      "eventId": "msft-visit-2026"
+    },
+    {
+      "userId": "student-vaibhav",
+      "eventId": "quantum-ml-seminar-2026"
+    }
+  ]
+}
