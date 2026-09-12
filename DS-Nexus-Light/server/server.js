@@ -24,7 +24,13 @@ try {
   console.warn('Directory check for storageFile:', e.message);
 }
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173,http://127.0.0.1:5173,http://localhost:3001,http://localhost:10000').split(',').map(v => v.trim()).filter(Boolean);
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS ||
+  'https://projects-lzpv.onrender.com,http://localhost:5173,http://127.0.0.1:5173,http://localhost:3001,http://localhost:10000'
+)
+  .split(',')
+  .map(v => v.trim())
+  .filter(Boolean);
 const corsOptions = {
   origin(origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
