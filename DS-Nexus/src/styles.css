@@ -1456,6 +1456,116 @@ a {
   color: var(--emerald);
 }
 
+.domain-alert-banner.info {
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--cyan-border);
+  color: var(--cyan);
+}
+
+.otp-input-large {
+  font-family: var(--font-mono);
+  font-size: 2rem !important;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 12px;
+  padding: 14px !important;
+  color: #38bdf8 !important;
+  background: rgba(0, 51, 102, 0.25) !important;
+  border: 2px dashed #38bdf8 !important;
+  border-radius: var(--radius-md) !important;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.otp-input-large:focus {
+  border-style: solid !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35);
+}
+
+.otp-helper-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otp-helper-card .helper-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.otp-helper-card .helper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.otp-btn-chip {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.otp-btn-chip:hover {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.magic-link-banner {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideDownToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.magic-link-banner.loading {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.magic-link-banner.success {
+  background: #059669;
+  color: #ffffff;
+}
+
+.magic-link-banner.error {
+  background: #e11d48;
+  color: #ffffff;
+}
+
+@keyframes slideDownToast {
+  from { transform: translate(-50%, -20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

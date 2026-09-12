@@ -168,6 +168,48 @@
       "phone": "+91 98765 00000",
       "section": "DS-A",
       "authProvider": "microsoft-365-otp"
+    },
+    {
+      "id": "student-ee3eef42",
+      "name": "Vaibhav Goyal",
+      "email": "vaibhav.test1788925727393@abes.ac.in",
+      "password": "28d1af82-78bb-498b-9d81-6e2b3adea43d",
+      "role": "student",
+      "rollNo": "2500321540101",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "email-otp-verified"
+    },
+    {
+      "id": "student-02d0e045",
+      "name": "Magic User",
+      "email": "magic.link1788925727445@abes.ac.in",
+      "password": "e1fab495-d976-4c02-af87-35d828b277f4",
+      "role": "student",
+      "rollNo": "2500321540999",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "email-link-verified"
+    },
+    {
+      "id": "student-9bc813ad",
+      "name": "Test Student",
+      "email": "student.test1788927480814@abes.ac.in",
+      "password": "af45961c-30af-4088-9f89-4e0a66e5b4ff",
+      "role": "student",
+      "rollNo": "2500321540999",
+      "branch": "CSE (Data Science)",
+      "year": "2nd Year",
+      "semester": "3rd Sem",
+      "phone": "+91 98765 00000",
+      "section": "DS-A",
+      "authProvider": "email-otp-verified"
     }
   ],
   "events": [

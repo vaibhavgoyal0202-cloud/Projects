@@ -28,7 +28,7 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173,ht
 const corsOptions = {
   origin(origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(null, true);
+    return callback(new Error('Origin is not allowed by CORS.'));
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -36,6 +36,8 @@ const corsOptions = {
 };
 
 const app = express();
+// Enable this only when the app is deployed behind a trusted HTTPS reverse proxy.
+if (process.env.TRUST_PROXY === 'true') app.set('trust proxy', 1);
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
@@ -147,94 +149,211 @@ const enrichEvent = (event) => {
 };
 
 // ==========================================
-// AUTHENTICATION & EMAIL DOMAIN VERIFICATION
 // ==========================================
+// 1. INPUT SANITIZATION & EMAIL VALIDATION
+// ==========================================
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
-// Helper to validate and extract domain
-const validateCollegeDomain = (email) => {
-  if (!email || typeof email !== 'string') return { isValid: false, reason: 'Email is required' };
+const sanitizeEmail = (email) => {
+  if (!email || typeof email !== 'string') {
+    return { isValid: false, reason: 'Email address is required.' };
+  }
   const clean = email.trim().toLowerCase();
+  if (clean.length > 254 || !EMAIL_REGEX.test(clean)) {
+    return { isValid: false, reason: 'Please enter a valid, well-formed email address.' };
+  }
   const parts = clean.split('@');
-  if (parts.length !== 2) return { isValid: false, reason: 'Invalid email format' };
-  
+  if (parts.length !== 2 || !parts[1].includes('.')) {
+    return { isValid: false, reason: 'Please enter a valid domain (e.g. yourname@abes.ac.in).' };
+  }
   const domain = parts[1];
-  if (domain === 'abes.ac.in' || domain.endsWith('.abes.ac.in')) {
-    return { isValid: true, domain, cleanEmail: clean };
-  }
-
-  // Detect specific common personal domains
-  const personalDomains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'rediffmail.com', 'protonmail.com'];
-  if (personalDomains.includes(domain)) {
-    return {
-      isValid: false,
-      isPersonal: true,
-      domain,
-      reason: `Personal email domain (@${domain}) detected. Department guidelines strictly require your official ABES Microsoft College Email ID (@abes.ac.in).`
-    };
-  }
-
-  return {
-    isValid: false,
-    isPersonal: true,
-    domain,
-    reason: `Unauthorized domain (@${domain}). Please sign in using your official ABES Microsoft College Email ID (@abes.ac.in).`
-  };
+  const isAbes = domain === 'abes.ac.in' || domain.endsWith('.abes.ac.in');
+  return { isValid: true, cleanEmail: clean, domain, isAbes };
 };
 
-// In-memory OTP Store: email -> { otp, expiresAt, name, rollNo, branch, year }
-const otpStore = new Map();
+// ==========================================
+// 2. PLUGGABLE OTP STORAGE ENGINE
+// (In-Memory Implementation, Swappable to Redis)
+// ==========================================
+class InMemoryOtpStore {
+  constructor() {
+    this.store = new Map();
+    // Auto-cleanup stale expired tokens every 60 seconds
+    setInterval(() => this.cleanupExpired(), 60 * 1000).unref();
+  }
+
+  async set(email, data, ttlMs = 5 * 60 * 1000) {
+    const expiresAt = Date.now() + ttlMs;
+    this.store.set(email, {
+      ...data,
+      attempts: 0,
+      createdAt: Date.now(),
+      expiresAt
+    });
+    return true;
+  }
+
+  async get(email) {
+    const record = this.store.get(email);
+    if (!record) return null;
+    return record;
+  }
+
+  async incrementAttempts(email) {
+    const record = this.store.get(email);
+    if (!record) return 0;
+    record.attempts = (record.attempts || 0) + 1;
+    this.store.set(email, record);
+    return record.attempts;
+  }
+
+  async delete(email) {
+    return this.store.delete(email);
+  }
+
+  cleanupExpired() {
+    const now = Date.now();
+    for (const [email, record] of this.store.entries()) {
+      if (now > record.expiresAt) {
+        this.store.delete(email);
+      }
+    }
+  }
+}
+
+const otpStore = new InMemoryOtpStore();
 
 // ==========================================
-// NODEMAILER EMAIL DISPATCH SERVICE
+// 3. SECURITY RATE LIMITING ENGINE
+// - 30s Cooldown per email/IP
+// - 5 Requests per 1 Hour Quota per email/IP
+// ==========================================
+class SecurityRateLimiter {
+  constructor() {
+    this.cooldowns = new Map(); // key -> lastRequestTimestamp
+    this.hourlyQuotas = new Map(); // key -> [timestamps]
+  }
+
+  // Check 30-second cooldown
+  checkCooldown(key, cooldownMs = 30 * 1000) {
+    const now = Date.now();
+    const last = this.cooldowns.get(key);
+    if (last && now - last < cooldownMs) {
+      const waitSec = Math.ceil((cooldownMs - (now - last)) / 1000);
+      return { allowed: false, waitSec };
+    }
+    return { allowed: true };
+  }
+
+  // Check 5 requests per hour quota
+  checkHourlyQuota(key, maxRequests = 5, windowMs = 60 * 60 * 1000) {
+    const now = Date.now();
+    let history = this.hourlyQuotas.get(key) || [];
+    // Keep only timestamps within the last 1 hour
+    history = history.filter(ts => now - ts < windowMs);
+    
+    if (history.length >= maxRequests) {
+      const oldest = history[0];
+      const resetMin = Math.ceil((windowMs - (now - oldest)) / 60000);
+      return { allowed: false, resetMin };
+    }
+    return { allowed: true, currentCount: history.length };
+  }
+
+  recordRequest(key) {
+    const now = Date.now();
+    this.cooldowns.set(key, now);
+    const history = (this.hourlyQuotas.get(key) || []).filter(ts => now - ts < 3600000);
+    history.push(now);
+    this.hourlyQuotas.set(key, history);
+  }
+
+  check(keys) {
+    for (const key of keys) {
+      const cooldown = this.checkCooldown(key);
+      if (!cooldown.allowed) return { allowed: false, error: `Please wait ${cooldown.waitSec} seconds before requesting a new OTP.` };
+      const hourly = this.checkHourlyQuota(key);
+      if (!hourly.allowed) return { allowed: false, error: `Too many OTP requests. Please try again in ${hourly.resetMin} minutes.` };
+    }
+    return { allowed: true };
+  }
+
+  record(keys) {
+    keys.forEach(key => this.recordRequest(key));
+  }
+}
+
+const rateLimiter = new SecurityRateLimiter();
+
+// Constants
+const OTP_TTL_MS = 5 * 60 * 1000; // Strictly 5 Minutes Expiry
+const MAX_VERIFY_ATTEMPTS = 5;      // Max 5 Failed Verification Attempts
+const hashOtp = otp => crypto.createHash('sha256').update(otp).digest();
+const safeOtpMatch = (storedHash, submittedOtp) => {
+  const submittedHash = hashOtp(submittedOtp);
+  return Buffer.isBuffer(storedHash)
+    && storedHash.length === submittedHash.length
+    && crypto.timingSafeEqual(storedHash, submittedHash);
+};
+const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
+
+// ==========================================
+// 4. NODEMAILER SMTP EMAIL DISPATCH SERVICE
 // ==========================================
 let mailTransporter = null;
 
 const createMailTransporter = () => {
-  const host = process.env.SMTP_HOST || (process.env.GMAIL_USER ? 'smtp.gmail.com' : null);
-  const port = Number(process.env.SMTP_PORT) || (process.env.GMAIL_USER ? 465 : 587);
-  const secure = port === 465;
   const user = process.env.SMTP_USER || process.env.GMAIL_USER;
   const pass = process.env.SMTP_PASS || process.env.GMAIL_APP_PASSWORD;
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const port = Number(process.env.SMTP_PORT) || 587;
+  const secure = port === 465;
 
-  if (host && user && pass) {
-    try {
-      const transporter = nodemailer.createTransport({
-        host,
-        port,
-        secure,
-        auth: { user, pass },
-        tls: { rejectUnauthorized: false }
-      });
-      console.log(`📧 [Nodemailer] SMTP Transporter initialized successfully via ${host}:${port} (${user})`);
-      return transporter;
-    } catch (err) {
-      console.warn('⚠️ [Nodemailer] Failed to initialize SMTP transporter:', err.message);
-    }
+  if (!user || !pass) {
+    console.warn('OTP email is not configured. Set GMAIL_USER and GMAIL_APP_PASSWORD (or SMTP_USER and SMTP_PASS).');
+    return null;
   }
-  return null;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: { user, pass },
+    });
+    console.log(`📧 OTP mail transporter configured for ${host}:${port}`);
+    return transporter;
+  } catch (err) {
+    console.warn('⚠️ [Nodemailer] Failed to initialize SMTP transporter:', err.message);
+    return null;
+  }
 };
 
 mailTransporter = createMailTransporter();
 
-// Helper to send ABES Branded OTP Email
+// Helper to send ABES Branded OTP Email with 5-Minute Expiry Notice
 const sendOtpEmail = async (toEmail, otp, studentName = 'Student') => {
+  const safeName = escapeHtml(String(studentName).trim().slice(0, 80) || 'Student');
+  const safeEmail = escapeHtml(toEmail);
   const htmlContent = `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f3f4f4; margin: 0; padding: 20px; }
-        .email-container { max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e4e4e7; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-        .email-header { background: #992728; padding: 24px 30px; text-align: center; color: #ffffff; border-bottom: 3px solid #772823; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f3f4f4; margin: 0; padding: 20px; color: #1e293b; }
+        .email-container { max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e4e4e7; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .email-header { background: #992728; padding: 26px 30px; text-align: center; color: #ffffff; border-bottom: 3px solid #772823; }
         .email-header h1 { margin: 0; font-size: 20px; letter-spacing: 0.5px; font-weight: 800; }
-        .email-header p { margin: 4px 0 0; font-size: 12px; color: #ffd700; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .email-header p { margin: 6px 0 0; font-size: 12px; color: #ffd700; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .email-body { padding: 32px 30px; color: #0e0e0e; line-height: 1.6; }
         .email-body h2 { margin-top: 0; font-size: 18px; color: #0e0e0e; }
-        .otp-box { background: #fdf5f5; border: 2px dashed #992728; border-radius: 8px; padding: 18px; text-align: center; margin: 24px 0; }
-        .otp-code { font-family: 'Courier New', Courier, monospace; font-size: 32px; font-weight: 900; letter-spacing: 8px; color: #992728; margin: 0; }
-        .otp-timer { font-size: 12px; color: #71717a; margin-top: 6px; }
-        .security-notice { background: #fafafa; border-left: 4px solid #992728; padding: 12px 16px; font-size: 12px; color: #4a4a4a; margin-top: 20px; border-radius: 4px; }
+        .otp-box { background: #fdf5f5; border: 2px dashed #992728; border-radius: 10px; padding: 22px; text-align: center; margin: 24px 0; }
+        .otp-label { font-size: 12px; font-weight: 700; color: #71717a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .otp-code { font-family: 'Courier New', Courier, monospace; font-size: 40px; font-weight: 900; letter-spacing: 10px; color: #992728; margin: 0; }
+        .otp-timer { font-size: 13px; font-weight: 700; color: #dc2626; margin-top: 10px; }
+        .security-notice { background: #fafafa; border-left: 4px solid #992728; padding: 12px 16px; font-size: 12px; color: #4a4a4a; margin-top: 24px; border-radius: 4px; }
         .email-footer { background: #0e0e0e; color: #a1a1aa; padding: 20px 30px; text-align: center; font-size: 11px; line-height: 1.5; }
         .email-footer strong { color: #ffffff; }
       </style>
@@ -246,16 +365,19 @@ const sendOtpEmail = async (toEmail, otp, studentName = 'Student') => {
           <p>Department of Computer Science & Engineering (Data Science)</p>
         </div>
         <div class="email-body">
-          <h2>Dear ${studentName},</h2>
-          <p>Your one-time 6-digit authentication verification code for accessing the <strong>ABES EC CSE(DS) Portal</strong> is provided below:</p>
+          <h2>Dear ${safeName},</h2>
+          <p>Your one-time 6-digit authentication verification code to access the <strong>ABES EC CSE(DS) Portal</strong> is:</p>
           
           <div class="otp-box">
+            <div class="otp-label">Verification OTP Code</div>
             <div class="otp-code">${otp}</div>
-            <div class="otp-timer">⏱️ Valid for 10 minutes only. Do not share this code.</div>
+            <div class="otp-timer">⏱️ Valid for 5 minutes only. Do not share this code with anyone.</div>
           </div>
 
+          <p style="font-size: 13px; color: #555;">Enter this 6-digit code in the login verification screen to access your Student Portal.</p>
+
           <div class="security-notice">
-            🔒 <strong>Strict Institutional Security:</strong> This verification code was dispatched for your official college account (<code>${toEmail}</code>). If you did not initiate this login request, please contact the Department Academic Cell immediately.
+            🔒 <strong>Institutional Security:</strong> This verification request was dispatched for <code>${safeEmail}</code>. You have up to 5 verification attempts. If you did not initiate this request, please disregard this email.
           </div>
         </div>
         <div class="email-footer">
@@ -268,110 +390,161 @@ const sendOtpEmail = async (toEmail, otp, studentName = 'Student') => {
     </html>
   `;
 
+  if (!mailTransporter) {
+    mailTransporter = createMailTransporter();
+  }
+
   if (mailTransporter) {
     try {
+      const senderAddr = process.env.SMTP_FROM || process.env.SMTP_USER || process.env.GMAIL_USER;
       const info = await mailTransporter.sendMail({
-        from: `"ABES EC Data Science Academic Cell" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'datascience@abes.ac.in'}>`,
+        from: `"ABES EC Data Science Academic Cell" <${senderAddr}>`,
         to: toEmail,
         subject: `🔐 ABES EC CSE(DS) - Your 6-Digit Verification Code: ${otp}`,
-        text: `ABES Engineering College - CSE (Data Science)\nYour verification code is: ${otp}\nValid for 10 minutes.`,
+        text: `ABES Engineering College - CSE (Data Science)\nYour verification code is: ${otp}\nValid for 5 minutes.`,
         html: htmlContent
       });
-      console.log(`✉️ [Real Email Dispatched] Message sent to ${toEmail}. MessageId: ${info.messageId}`);
+      console.log(`✉️ OTP email sent. MessageId: ${info.messageId}`);
       return { sent: true, messageId: info.messageId };
     } catch (err) {
       console.error(`⚠️ [Nodemailer SMTP Error] Failed to send real email to ${toEmail}:`, err.message);
       return { sent: false, error: err.message };
     }
   } else {
-    console.log(`ℹ️ [Email Simulation Mode] Real SMTP credentials not configured in .env. Logging OTP for ${toEmail}: ${otp}`);
-    return { sent: false, simulated: true };
+    console.error('⚠️ [Nodemailer] Transporter not available.');
+    return { sent: false, error: 'Mail transporter could not be initialized.' };
   }
 };
 
-// Student: Send Microsoft College 6-Digit OTP
+// ==========================================
+// 5. BACKEND ENDPOINTS (SEND-OTP & VERIFY-OTP)
+// ==========================================
+
+// Endpoint: Send OTP with 30s Cooldown, Hourly Quota, and 5-min Expiry
 app.post('/api/auth/send-otp', async (req, res) => {
   const { email, name, rollNo, branch, year } = req.body;
-  const domainCheck = validateCollegeDomain(email);
+  const clientIp = req.ip || 'client';
+  
+  // Step 1: Sanitize and validate email
+  const validation = sanitizeEmail(email);
+  if (!validation.isValid) {
+    return res.status(400).json({ error: validation.reason });
+  }
 
-  if (!domainCheck.isValid) {
-    return res.status(403).json({
-      error: domainCheck.reason,
-      domain: domainCheck.domain,
-      isPersonalEmail: domainCheck.isPersonal
+  const cleanEmail = validation.cleanEmail;
+  // Keep independent limits for both identities: switching either the email or IP
+  // must not bypass the request throttle.
+  const rateLimitKeys = [`email:${cleanEmail}`, `ip:${clientIp}`];
+
+  // Step 2: 30-second cooldown and five requests/hour, per email and per IP.
+  const rateLimit = rateLimiter.check(rateLimitKeys);
+  if (!rateLimit.allowed) return res.status(429).json({ error: rateLimit.error });
+
+  // Step 3: Cryptographically secure 6-digit OTP generation (uniform random distribution)
+  const otp = crypto.randomInt(100000, 1000000).toString();
+
+  // Step 4: Record the request before sending so a failing SMTP provider cannot be abused.
+  rateLimiter.record(rateLimitKeys);
+
+  // Step 5: Dispatch the email. The OTP is never returned to the browser.
+  const mailResult = await sendOtpEmail(cleanEmail, otp, name || 'Student');
+
+  if (!mailResult.sent) {
+    console.error('❌ [Email Error] Could not dispatch verification email:', mailResult.error);
+    return res.status(500).json({
+      error: 'We could not send the verification email right now. Please try again later.'
     });
   }
 
-  const cleanEmail = domainCheck.cleanEmail;
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes expiry
+  // Step 6: Store only a hash server-side; an in-memory implementation can be replaced by Redis.
+  await otpStore.set(cleanEmail, {
+    otpHash: hashOtp(otp),
+    name: typeof name === 'string' ? name.trim().slice(0, 80) : undefined,
+    rollNo: typeof rollNo === 'string' ? rollNo.trim().slice(0, 40) : undefined,
+    branch: typeof branch === 'string' ? branch.trim().slice(0, 80) : undefined,
+    year: typeof year === 'string' ? year.trim().slice(0, 30) : '2nd Year'
+  }, OTP_TTL_MS);
 
-  otpStore.set(cleanEmail, {
-    otp,
-    expiresAt,
-    name: name?.trim(),
-    rollNo: rollNo?.trim(),
-    branch: branch?.trim(),
-    year: year || '2nd Year'
-  });
-
-  console.log(`🔐 [Microsoft 365 Verification] 6-Digit OTP for ${cleanEmail}: ${otp}`);
-
-  // Send real email if SMTP is configured
-  const mailResult = await sendOtpEmail(cleanEmail, otp, name || 'Student');
-
+  // Never return the OTP to the client for zero-trust security
   res.json({
     success: true,
-    message: mailResult.sent 
-      ? `A 6-digit verification code has been dispatched to your official Microsoft College Email inbox (${cleanEmail}).`
-      : `A 6-digit verification code has been generated for (${cleanEmail}).`,
-    simulatedOtp: otp, // Always provided for seamless evaluation & UI autofill
+    message: `A 6-digit verification code has been dispatched to your email inbox (${cleanEmail}).`,
     email: cleanEmail,
-    deliveredLive: mailResult.sent
+    expiresInSeconds: 300,
+    cooldownSeconds: 30,
+    deliveredLive: true
   });
 });
 
-// Student: Verify 6-Digit OTP & Authenticate
-app.post('/api/auth/verify-otp', (req, res) => {
+// Endpoint: Verify OTP with Expiry, Max 5 Attempts, and Session Provisioning
+app.post('/api/auth/verify-otp', async (req, res) => {
   const { email, otp } = req.body;
-  const cleanEmail = String(email || '').trim().toLowerCase();
+  const validation = sanitizeEmail(email);
+  if (!validation.isValid) {
+    return res.status(400).json({ error: validation.reason });
+  }
+
+  const cleanEmail = validation.cleanEmail;
   const cleanOtp = String(otp || '').trim();
 
-  const record = otpStore.get(cleanEmail);
+  if (!cleanOtp || cleanOtp.length !== 6 || !/^\d{6}$/.test(cleanOtp)) {
+    return res.status(400).json({ error: 'Please enter a valid 6-digit numeric verification code.' });
+  }
+
+  // Step 1: Retrieve OTP from store
+  const record = await otpStore.get(cleanEmail);
   if (!record) {
-    return res.status(400).json({ error: 'No active OTP verification session found for this email. Please request a new code.' });
+    return res.status(400).json({
+      error: 'No active verification session found or the OTP has expired (5 minutes limit). Please request a new code.'
+    });
   }
 
+  // Step 2: Check 5-minute expiry
   if (Date.now() > record.expiresAt) {
-    otpStore.delete(cleanEmail);
-    return res.status(400).json({ error: 'Verification code has expired. Please request a new 6-digit OTP.' });
+    await otpStore.delete(cleanEmail);
+    return res.status(410).json({
+      error: 'Verification code has expired (5 minutes limit). Please request a new code.'
+    });
   }
 
-  if (record.otp !== cleanOtp) {
-    return res.status(400).json({ error: 'Invalid 6-digit verification code. Please check your Microsoft inbox.' });
+  // Step 3: Check OTP match vs Failed Attempts Rate Limit
+  if (!safeOtpMatch(record.otpHash, cleanOtp)) {
+    const attempts = await otpStore.incrementAttempts(cleanEmail);
+    const remaining = MAX_VERIFY_ATTEMPTS - attempts;
+
+    if (remaining <= 0) {
+      await otpStore.delete(cleanEmail);
+      return res.status(429).json({
+        error: 'Too many failed verification attempts (5/5). For your security, this verification code has been invalidated. Please request a new OTP.'
+      });
+    }
+
+    return res.status(400).json({
+      error: `OTP didn't match. Please try again. (${remaining} attempt${remaining > 1 ? 's' : ''} remaining)`
+    });
   }
 
-  // OTP is verified! Clean up OTP record
-  otpStore.delete(cleanEmail);
+  // Step 4: OTP is verified! Invalidate stored OTP immediately
+  await otpStore.delete(cleanEmail);
 
+  // Step 5: Lookup existing user or auto-provision verified student profile
   let user = db.users.find(u => u.email === cleanEmail);
   if (user) {
     if (user.role !== 'student') {
       return res.status(403).json({ error: 'This account belongs to the Department Committee. Please switch to Committee Portal.' });
     }
     const token = newToken(user);
-    return res.json({ token, user: publicUser(user), message: 'OTP verified successfully!' });
+    return res.json({ token, user: publicUser(user), message: 'OTP verified successfully! Welcome back to the Student Portal.' });
   }
 
-  // Auto-provision new verified student
-  const parsedRoll = record.rollNo || cleanEmail.split('@')[0].split('.')[1]?.toUpperCase() || `2500321540${Math.floor(100 + Math.random() * 900)}`;
-  const studentName = record.name || cleanEmail.split('@')[0].split('.')[0].replace(/\b\w/g, c => c.toUpperCase()) || 'Data Science Student';
+  // Provision new student profile (zero password stored)
+  const parsedRoll = record.rollNo || (cleanEmail.includes('.') ? cleanEmail.split('@')[0].split('.')[1]?.toUpperCase() : null) || `2500321540${Math.floor(100 + Math.random() * 900)}`;
+  const studentName = record.name || (cleanEmail.includes('.') ? cleanEmail.split('@')[0].split('.')[0].replace(/\b\w/g, c => c.toUpperCase()) : cleanEmail.split('@')[0].replace(/\b\w/g, c => c.toUpperCase())) || 'Data Science Student';
 
   user = {
     id: 'student-' + crypto.randomUUID().slice(0, 8),
     name: studentName,
     email: cleanEmail,
-    password: crypto.randomUUID(),
     role: 'student',
     rollNo: parsedRoll,
     branch: record.branch || 'CSE (Data Science)',
@@ -379,14 +552,19 @@ app.post('/api/auth/verify-otp', (req, res) => {
     semester: '3rd Sem',
     phone: '+91 98765 00000',
     section: 'DS-A',
-    authProvider: 'microsoft-365-otp'
+    authProvider: 'email-otp-verified'
   };
 
   db.users.push(user);
   saveDb();
 
   const token = newToken(user);
-  res.status(201).json({ token, user: publicUser(user), isNew: true, message: 'Microsoft 365 Account verified and provisioned!' });
+  res.status(201).json({
+    token,
+    user: publicUser(user),
+    isNew: true,
+    message: 'Email verified successfully! Welcome to the Student Portal.'
+  });
 });
 
 // Microsoft 365 Single Sign-On / Verified Login for Students
@@ -395,11 +573,7 @@ app.post('/api/auth/microsoft-login', (req, res) => {
   
   const domainCheck = validateCollegeDomain(email);
   if (!domainCheck.isValid) {
-    return res.status(403).json({
-      error: domainCheck.reason,
-      domain: domainCheck.domain,
-      isPersonalEmail: domainCheck.isPersonal
-    });
+    return res.status(400).json({ error: domainCheck.reason });
   }
 
   const cleanEmail = domainCheck.cleanEmail;
@@ -409,16 +583,13 @@ app.post('/api/auth/microsoft-login', (req, res) => {
     if (user.role !== 'student') {
       return res.status(403).json({ error: 'This account is registered under the Department Committee portal. Please switch to Committee Login.' });
     }
-    if (password && user.password && user.password !== password) {
-      return res.status(401).json({ error: 'Incorrect Microsoft College password.' });
-    }
     const token = newToken(user);
     return res.json({ token, user: publicUser(user), message: 'Welcome back to DS Student Portal!' });
   }
 
-  // Auto-provision student profile for verified ABES Microsoft email
-  const parsedRoll = rollNo?.trim() || cleanEmail.split('@')[0].split('.')[1]?.toUpperCase() || `2500321540${Math.floor(100 + Math.random() * 900)}`;
-  const studentName = name?.trim() || cleanEmail.split('@')[0].split('.')[0].replace(/\b\w/g, c => c.toUpperCase()) || 'Data Science Student';
+  // Auto-provision student profile for verified email
+  const parsedRoll = rollNo?.trim() || (cleanEmail.includes('.') ? cleanEmail.split('@')[0].split('.')[1]?.toUpperCase() : null) || `2500321540${Math.floor(100 + Math.random() * 900)}`;
+  const studentName = name?.trim() || (cleanEmail.includes('.') ? cleanEmail.split('@')[0].split('.')[0].replace(/\b\w/g, c => c.toUpperCase()) : cleanEmail.split('@')[0].replace(/\b\w/g, c => c.toUpperCase())) || 'Data Science Student';
 
   user = {
     id: 'student-' + crypto.randomUUID().slice(0, 8),
@@ -1312,7 +1483,7 @@ app.get('/api/committee/export/:session', committeeOnly, (req, res) => {
   const reportRows = [];
   events.forEach(e => {
     const attendees = db.registrations.filter(r => r.eventId === e.id);
-    attendees.forEach(a => {
+    if (attendees.length === 0) {
       reportRows.push({
         Session: e.session,
         Event_ID: e.id,
@@ -1321,27 +1492,55 @@ app.get('/api/committee/export/:session', committeeOnly, (req, res) => {
         Academic_Subject: e.academicSubject || 'Core Curriculum',
         Event_Date: e.date,
         Venue: e.venue,
-        Coordinator: e.coordinator,
-        Speaker_Name: e.speaker?.name,
-        Speaker_Org: e.speaker?.organization,
-        Student_Name: a.name,
-        Student_Email: a.email,
-        Roll_Number: a.rollNo,
-        Branch: a.branch,
-        Year_Semester: `${a.year} (${a.semester})`,
-        Ticket_Code: a.ticketCode,
-        Attended_CheckedIn: a.checkedIn ? 'YES' : 'NO',
-        CheckIn_Timestamp: a.checkedInAt || 'N/A',
-        Certificate_Issued: a.certificateIssued ? 'YES' : 'NO',
-        Certificate_ID: a.certificateId || 'N/A'
+        Coordinator: e.coordinator || 'Department Faculty',
+        Speaker_Name: e.speaker?.name || 'Department Faculty',
+        Speaker_Org: e.speaker?.organization || 'ABES Engineering College',
+        Student_Name: 'None (No active registrations)',
+        Student_Email: 'N/A',
+        Roll_Number: 'N/A',
+        Branch: 'N/A',
+        Year_Semester: 'N/A',
+        Ticket_Code: 'N/A',
+        Attended_CheckedIn: 'NO',
+        CheckIn_Timestamp: 'N/A',
+        Certificate_Issued: 'NO',
+        Certificate_ID: 'N/A'
       });
-    });
+    } else {
+      attendees.forEach(a => {
+        reportRows.push({
+          Session: e.session,
+          Event_ID: e.id,
+          Event_Title: e.title,
+          Category: e.categoryLabel || e.category,
+          Academic_Subject: e.academicSubject || 'Core Curriculum',
+          Event_Date: e.date,
+          Venue: e.venue,
+          Coordinator: e.coordinator || 'Department Faculty',
+          Speaker_Name: e.speaker?.name || 'Department Faculty',
+          Speaker_Org: e.speaker?.organization || 'ABES Engineering College',
+          Student_Name: a.name,
+          Student_Email: a.email,
+          Roll_Number: a.rollNo,
+          Branch: a.branch,
+          Year_Semester: `${a.year} (${a.semester})`,
+          Ticket_Code: a.ticketCode,
+          Attended_CheckedIn: a.checkedIn ? 'YES' : 'NO',
+          CheckIn_Timestamp: a.checkedInAt || 'N/A',
+          Certificate_Issued: a.certificateIssued ? 'YES' : 'NO',
+          Certificate_ID: a.certificateId || 'N/A'
+        });
+      });
+    }
   });
 
   const format = req.query.format || 'json';
   if (format === 'csv') {
     if (!reportRows.length) {
-      return res.send('No attendance records found for this academic session.');
+      const defaultHeader = 'Session,Event_ID,Event_Title,Category,Academic_Subject,Event_Date,Venue,Coordinator,Speaker_Name,Speaker_Org,Student_Name,Student_Email,Roll_Number,Branch,Year_Semester,Ticket_Code,Attended_CheckedIn,CheckIn_Timestamp,Certificate_Issued,Certificate_ID\n';
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=ABES_DS_Report_${targetSession}.csv`);
+      return res.send(defaultHeader);
     }
     const headers = Object.keys(reportRows[0]);
     const csvContent = [

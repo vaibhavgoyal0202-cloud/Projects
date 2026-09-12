@@ -1,0 +1,26 @@
+﻿# Dependencies
+**/node_modules/
+.pnp
+.pnp.js
+
+# Production builds
+**/dist/
+**/build/
+
+# Vite caches
+**/.vite/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS & IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

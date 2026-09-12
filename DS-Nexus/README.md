@@ -62,6 +62,15 @@ npm run build
 npm start
 ```
 
+### Email OTP configuration
+
+Student sign-in uses a server-validated six-digit email OTP. Copy `.env.example` to `.env`, then set `GMAIL_USER` and `GMAIL_APP_PASSWORD` to a Gmail address and a Gmail App Password (never a normal Gmail password). The OTP and SMTP credentials are never sent to the browser.
+
+- `POST /api/auth/send-otp` accepts `{ email, name?, rollNo? }`, sends a code valid for five minutes, and is limited to one request every 30 seconds and five per hour independently per email and IP.
+- `POST /api/auth/verify-otp` accepts `{ email, otp }`, checks the server-side OTP hash, invalidates it on success or after five failed attempts, and returns the authenticated user token.
+
+For production, serve the site over HTTPS, set `ALLOWED_ORIGINS` to the exact public frontend URL, and set `TRUST_PROXY=1` only when a trusted reverse proxy supplies the client IP.
+
 ---
 
 ## 👥 Demo Accounts

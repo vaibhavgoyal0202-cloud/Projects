@@ -259,13 +259,30 @@ function AuthProvider({ children }) {
     return data.user;
   };
 
+  const sendOtp = async payload => {
+    return await api('/auth/send-otp', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  };
+
+  const verifyOtp = async (email, otp) => {
+    const data = await api('/auth/verify-otp', {
+      method: 'POST',
+      body: JSON.stringify({ email, otp }),
+    });
+    localStorage.setItem('ds-nexus-token', data.token);
+    setUser(data.user);
+    return data;
+  };
+
   const logout = () => {
     localStorage.removeItem('ds-nexus-token');
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, microsoftLogin, logout, setUser }}>
+    <AuthContext.Provider value={{ user, loading, login, microsoftLogin, sendOtp, verifyOtp, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );
@@ -277,8 +294,16 @@ function AuthProvider({ children }) {
 function App() {
   const { user, logout } = useAuth();
 
-  // Navigation & View State
-  const [activePortal, setActivePortal] = useState('public'); // 'public' | 'student' | 'committee'
+  // Navigation & View State (Persisted in localStorage)
+  const [activePortal, setActivePortalState] = useState(() => {
+    return localStorage.getItem('ds-nexus-active-portal') || 'public';
+  });
+
+  const setActivePortal = portal => {
+    setActivePortalState(portal);
+    localStorage.setItem('ds-nexus-active-portal', portal);
+  };
+
   const [selectedSession, setSelectedSession] = useState('2026-27');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -377,8 +402,17 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      if (user.role === 'student') loadStudentData();
-      if (user.role === 'committee') loadCommitteeData();
+      if (user.role === 'student') {
+        loadStudentData();
+        if (activePortal === 'committee') setActivePortal('student');
+      } else if (user.role === 'committee') {
+        loadCommitteeData();
+        if (activePortal === 'student') setActivePortal('committee');
+      }
+    } else {
+      if (activePortal === 'student' || activePortal === 'committee') {
+        setActivePortal('public');
+      }
     }
   }, [user]);
 
@@ -521,37 +555,23 @@ function App() {
               🏛️ Events & Archives
             </button>
 
-            <button
-              className={`nav-btn ${activePortal === 'student' ? 'active' : ''}`}
-              onClick={() => {
-                if (!user) {
-                  setAuthInitialRole('student');
-                  setAuthModalOpen(true);
-                } else if (user.role !== 'student') {
-                  alert('You are currently signed in as Department Committee. Switch to a student account to view Student Portal.');
-                } else {
-                  setActivePortal('student');
-                }
-              }}
-            >
-              🎓 Student Portal
-            </button>
+            {user?.role === 'student' && (
+              <button
+                className={`nav-btn ${activePortal === 'student' ? 'active' : ''}`}
+                onClick={() => setActivePortal('student')}
+              >
+                🎓 Student Portal
+              </button>
+            )}
 
-            <button
-              className={`nav-btn ${activePortal === 'committee' ? 'active' : ''}`}
-              onClick={() => {
-                if (!user) {
-                  setAuthInitialRole('committee');
-                  setAuthModalOpen(true);
-                } else if (user.role !== 'committee') {
-                  alert('Department Committee access requires faculty / coordinator credentials.');
-                } else {
-                  setActivePortal('committee');
-                }
-              }}
-            >
-              ⚙️ Committee Portal
-            </button>
+            {user?.role === 'committee' && (
+              <button
+                className={`nav-btn ${activePortal === 'committee' ? 'active' : ''}`}
+                onClick={() => setActivePortal('committee')}
+              >
+                ⚙️ Committee Portal
+              </button>
+            )}
 
             {user ? (
               <div className="user-menu-btn">
@@ -617,38 +637,30 @@ function App() {
               >
                 🏛️ Events, Workshops & Industrial Visits
               </button>
-              <button
-                className={`mobile-drawer-nav-item ${activePortal === 'student' ? 'active' : ''}`}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (!user) {
-                    setAuthInitialRole('student');
-                    setAuthModalOpen(true);
-                  } else if (user.role !== 'student') {
-                    alert('Switch to student account to access Student Portal.');
-                  } else {
+
+              {user?.role === 'student' && (
+                <button
+                  className={`mobile-drawer-nav-item ${activePortal === 'student' ? 'active' : ''}`}
+                  onClick={() => {
                     setActivePortal('student');
-                  }
-                }}
-              >
-                🎓 Microsoft Student Portal
-              </button>
-              <button
-                className={`mobile-drawer-nav-item ${activePortal === 'committee' ? 'active' : ''}`}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (!user) {
-                    setAuthInitialRole('committee');
-                    setAuthModalOpen(true);
-                  } else if (user.role !== 'committee') {
-                    alert('Department Committee access requires faculty credentials.');
-                  } else {
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  🎓 Microsoft Student Portal
+                </button>
+              )}
+
+              {user?.role === 'committee' && (
+                <button
+                  className={`mobile-drawer-nav-item ${activePortal === 'committee' ? 'active' : ''}`}
+                  onClick={() => {
                     setActivePortal('committee');
-                  }
-                }}
-              >
-                ⚙️ Department Committee & HOD Portal
-              </button>
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  ⚙️ Department Committee & HOD Portal
+                </button>
+              )}
 
               <div className="mobile-drawer-section-title" style={{ marginTop: '16px' }}>SESSION ARCHIVES</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -1076,41 +1088,27 @@ function App() {
           Events
         </button>
 
-        <button
-          type="button"
-          className={`mobile-nav-item ${activePortal === 'student' ? 'active' : ''}`}
-          onClick={() => {
-            if (!user) {
-              setAuthInitialRole('student');
-              setAuthModalOpen(true);
-            } else if (user.role !== 'student') {
-              alert('Please log in with a student Microsoft account.');
-            } else {
-              setActivePortal('student');
-            }
-          }}
-        >
-          <span>🎓</span>
-          Student
-        </button>
+        {user?.role === 'student' && (
+          <button
+            type="button"
+            className={`mobile-nav-item ${activePortal === 'student' ? 'active' : ''}`}
+            onClick={() => setActivePortal('student')}
+          >
+            <span>🎓</span>
+            Student
+          </button>
+        )}
 
-        <button
-          type="button"
-          className={`mobile-nav-item ${activePortal === 'committee' ? 'active' : ''}`}
-          onClick={() => {
-            if (!user) {
-              setAuthInitialRole('committee');
-              setAuthModalOpen(true);
-            } else if (user.role !== 'committee') {
-              alert('Committee Portal is restricted to authorized faculty.');
-            } else {
-              setActivePortal('committee');
-            }
-          }}
-        >
-          <span>⚙️</span>
-          Committee
-        </button>
+        {user?.role === 'committee' && (
+          <button
+            type="button"
+            className={`mobile-nav-item ${activePortal === 'committee' ? 'active' : ''}`}
+            onClick={() => setActivePortal('committee')}
+          >
+            <span>⚙️</span>
+            Committee
+          </button>
+        )}
 
         <button
           type="button"
@@ -3485,33 +3483,55 @@ function CommitteeSecurityModal({ user, onClose, onUpdated }) {
 }
 
 // ==========================================
-// AUTHENTICATION MODAL WITH 6-DIGIT OTP & DOMAIN CHECK
+// AUTHENTICATION MODAL (PURE 6-DIGIT OTP & COMMITTEE LOGIN)
 // ==========================================
 function AuthModal({ initialRole = 'student', onClose }) {
-  const { login, microsoftLogin, setUser } = useAuth();
+  const { login, sendOtp, verifyOtp } = useAuth();
   const [activeTab, setActiveTab] = useState(initialRole); // 'student' | 'committee'
-  const [authMethod, setAuthMethod] = useState('otp'); // 'otp' | 'password'
 
-  // OTP State
-  const [otpStep, setOtpStep] = useState(1); // 1: Enter Email -> 2: Enter 6-digit OTP
-  const [enteredOtp, setEnteredOtp] = useState('');
-  const [simulatedOtpNotice, setSimulatedOtpNotice] = useState('');
+  // Student Step State
+  const [step, setStep] = useState('input'); // 'input' | 'otp'
+  const [studentEmail, setStudentEmail] = useState('');
+  const [studentName, setStudentName] = useState('');
+  const [studentRoll, setStudentRoll] = useState('');
+  const [otp, setOtp] = useState('');
+  const [deliveredLive, setDeliveredLive] = useState(false);
+  const [resendMsg, setResendMsg] = useState('');
 
-  // Student Form State
-  const [studentEmail, setStudentEmail] = useState('vaibhav.25ds101@abes.ac.in');
-  const [studentPassword, setStudentPassword] = useState('Vaibhav#2026');
-  const [studentName, setStudentName] = useState('Vaibhav Goyal');
-  const [studentRoll, setStudentRoll] = useState('2500321540101');
+  // Real-time Timers (5-minute expiry & 30-second resend cooldown)
+  const [expirySeconds, setExpirySeconds] = useState(300);
+  const [cooldownSeconds, setCooldownSeconds] = useState(30);
 
   // Committee Form State
-  const [committeeEmail, setCommitteeEmail] = useState('hod.ds@abes.ac.in');
-  const [committeePassword, setCommitteePassword] = useState('Admin#DS2026');
+  const [committeeEmail, setCommitteeEmail] = useState('');
+  const [committeePassword, setCommitteePassword] = useState('');
 
-  const [domainStatus, setDomainStatus] = useState(null); // { isPersonal: boolean, valid: boolean, msg: string }
+  const [domainStatus, setDomainStatus] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
 
-  // Real-time Email Domain Check
+  // Timer Tick Interval for Step 2
+  useEffect(() => {
+    let timer = null;
+    if (step === 'otp') {
+      timer = setInterval(() => {
+        setExpirySeconds(prev => (prev > 0 ? prev - 1 : 0));
+        setCooldownSeconds(prev => (prev > 0 ? prev - 1 : 0));
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [step]);
+
+  const formatTime = (secs) => {
+    const m = Math.floor(secs / 60).toString().padStart(2, '0');
+    const s = (secs % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  // Real-time Email Validation
   const handleEmailChange = val => {
     setStudentEmail(val);
     setError('');
@@ -3522,109 +3542,94 @@ function AuthModal({ initialRole = 'student', onClose }) {
     }
     const domain = clean.split('@')[1];
     if (domain === 'abes.ac.in' || domain.endsWith('.abes.ac.in')) {
-      setDomainStatus({ valid: true, msg: '✅ Verified ABES Microsoft College Email Domain' });
+      setDomainStatus({ valid: true, isAbes: true, msg: '🎓 Verified ABES Microsoft College Email ID' });
+    } else if (clean.includes('.') && domain.length > 2) {
+      setDomainStatus({ valid: true, isAbes: false, msg: `📧 Email: ${clean}` });
     } else {
-      const personalDomains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'rediffmail.com'];
-      if (personalDomains.includes(domain)) {
-        setDomainStatus({
-          valid: false,
-          isPersonal: true,
-          msg: `⚠️ Personal Email Detected (@${domain}): Access Restricted. Department policy requires your official ABES Microsoft Email ID (e.g. name.rollno@abes.ac.in).`
-        });
-      } else {
-        setDomainStatus({
-          valid: false,
-          isPersonal: true,
-          msg: `⚠️ Non-college domain (@${domain}). Please enter your @abes.ac.in Microsoft email.`
-        });
-      }
+      setDomainStatus(null);
     }
   };
 
-  useEffect(() => {
-    if (studentEmail) handleEmailChange(studentEmail);
-  }, []);
-
-  // Send 6-Digit OTP
+  // Step 1: Send 6-Digit OTP
   const handleSendOtp = async e => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setError('');
-    if (!domainStatus || !domainStatus.valid) {
-      setError('Please provide a verified college Microsoft email ending with @abes.ac.in.');
+    setResendMsg('');
+    const clean = studentEmail.trim().toLowerCase();
+    if (!clean || !clean.includes('@') || !clean.includes('.')) {
+      setError('Please enter a valid email address.');
       return;
     }
 
     setLoading(true);
     try {
-      const res = await api('/auth/send-otp', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: studentEmail,
-          name: studentName,
-          rollNo: studentRoll,
-          branch: 'CSE (Data Science)',
-          year: '2nd Year'
-        })
-      });
-      setSimulatedOtpNotice(`🔐 Microsoft 365 OTP Sent! Your 6-digit verification code is: ${res.simulatedOtp}`);
-      setEnteredOtp(res.simulatedOtp || '');
-      setOtpStep(2);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Verify 6-Digit OTP
-  const handleVerifyOtp = async e => {
-    e.preventDefault();
-    setError('');
-    if (!enteredOtp || enteredOtp.trim().length !== 6) {
-      setError('Please enter the 6-digit verification code sent to your email.');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const res = await api('/auth/verify-otp', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: studentEmail,
-          otp: enteredOtp.trim()
-        })
-      });
-      localStorage.setItem('ds-nexus-token', res.token);
-      setUser(res.user);
-      onClose();
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Standard Password Submit
-  const handleStudentPasswordSubmit = async e => {
-    e.preventDefault();
-    setError('');
-    if (!domainStatus || !domainStatus.valid) {
-      setError('Please provide a verified college Microsoft email ending with @abes.ac.in.');
-      return;
-    }
-
-    try {
-      await microsoftLogin({
-        email: studentEmail,
-        password: studentPassword,
-        name: studentName,
-        rollNo: studentRoll,
+      const res = await sendOtp({
+        email: clean,
+        name: studentName.trim() || undefined,
+        rollNo: studentRoll.trim() || undefined,
         branch: 'CSE (Data Science)',
         year: '2nd Year',
       });
+      setDeliveredLive(!!res.deliveredLive);
+      setExpirySeconds(res.expiresInSeconds || 300);
+      setCooldownSeconds(res.cooldownSeconds || 30);
+      setStep('otp');
+    } catch (err) {
+      setError(err.message || 'Failed to dispatch verification code. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Resend 6-Digit OTP
+  const handleResendOtp = async () => {
+    if (cooldownSeconds > 0) return;
+    setError('');
+    setResendMsg('');
+    setResending(true);
+    try {
+      const res = await sendOtp({
+        email: studentEmail.trim().toLowerCase(),
+        name: studentName.trim() || undefined,
+        rollNo: studentRoll.trim() || undefined,
+        branch: 'CSE (Data Science)',
+        year: '2nd Year',
+      });
+      setDeliveredLive(!!res.deliveredLive);
+      setExpirySeconds(res.expiresInSeconds || 300);
+      setCooldownSeconds(res.cooldownSeconds || 30);
+      setResendMsg('✅ New 6-digit verification OTP dispatched to your inbox!');
+      setTimeout(() => setResendMsg(''), 5000);
+    } catch (err) {
+      setError(err.message || 'Failed to resend code.');
+    } finally {
+      setResending(false);
+    }
+  };
+
+  // Step 2: Verify 6-Digit OTP
+  const handleVerifyOtp = async e => {
+    e.preventDefault();
+    setError('');
+    setResendMsg('');
+    const cleanOtp = otp.trim();
+    if (!cleanOtp) {
+      setError('Please enter the 6-digit verification code sent to your email.');
+      return;
+    }
+    if (cleanOtp.length !== 6) {
+      setError('Verification code must be exactly 6 digits.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await verifyOtp(studentEmail.trim().toLowerCase(), cleanOtp);
       onClose();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "OTP didn't match. Please check your code in your email and try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -3632,276 +3637,211 @@ function AuthModal({ initialRole = 'student', onClose }) {
   const handleCommitteeSubmit = async e => {
     e.preventDefault();
     setError('');
+    if (!committeeEmail.trim() || !committeePassword) {
+      setError('Please enter both faculty email and password.');
+      return;
+    }
+
+    setLoading(true);
     try {
-      await login(committeeEmail, committeePassword, 'committee');
+      await login(committeeEmail.trim().toLowerCase(), committeePassword, 'committee');
       onClose();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Authentication failed. Please verify faculty credentials.');
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const setDemoStudent = (email, pass, name, roll) => {
-    setStudentEmail(email);
-    setStudentPassword(pass);
-    setStudentName(name);
-    setStudentRoll(roll);
-    handleEmailChange(email);
-    setOtpStep(1);
-    setSimulatedOtpNotice('');
-  };
-
-  const setDemoCommittee = (email, pass) => {
-    setCommitteeEmail(email);
-    setCommitteePassword(pass);
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="auth-modal-card" onClick={e => e.stopPropagation()}>
+      <div className="auth-modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '520px' }}>
         <div className="auth-tabs-header">
           <button
             className={`auth-tab-switch ${activeTab === 'student' ? 'active' : ''}`}
-            onClick={() => { setActiveTab('student'); setError(''); }}
+            onClick={() => { setActiveTab('student'); setError(''); setResendMsg(''); }}
           >
-            🎓 Student Portal (Microsoft)
+            🎓 Student Portal (Email & OTP)
           </button>
           <button
             className={`auth-tab-switch ${activeTab === 'committee' ? 'active' : ''}`}
-            onClick={() => { setActiveTab('committee'); setError(''); }}
+            onClick={() => { setActiveTab('committee'); setError(''); setResendMsg(''); }}
           >
             🏛️ Department Committee
           </button>
         </div>
 
-        <div className="auth-body">
+        <div className="auth-body" style={{ padding: '24px' }}>
           {error && (
             <div className="domain-alert-banner warning">
-              {error}
+              <span>❌</span>
+              <div>{error}</div>
+            </div>
+          )}
+
+          {resendMsg && (
+            <div className="domain-alert-banner valid">
+              <div>{resendMsg}</div>
             </div>
           )}
 
           {activeTab === 'student' ? (
-            <div>
-              <div className="msft-badge-box">
-                <svg className="msft-icon-svg" viewBox="0 0 23 23">
-                  <path fill="#f35325" d="M1 1h10v10H1z" />
-                  <path fill="#81bc06" d="M12 1h10v10H12z" />
-                  <path fill="#05a6f0" d="M1 12h10v10H1z" />
-                  <path fill="#ffba08" d="M12 12h10v10H12z" />
-                </svg>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: '0.84rem' }}>
-                    Microsoft 365 College Authentication
-                  </div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                    Strict institutional verification for @abes.ac.in
+            step === 'input' ? (
+              <div>
+                <div className="msft-badge-box" style={{ marginBottom: '18px' }}>
+                  <svg className="msft-icon-svg" viewBox="0 0 23 23">
+                    <path fill="#f35325" d="M1 1h10v10H1z" />
+                    <path fill="#81bc06" d="M12 1h10v10H12z" />
+                    <path fill="#05a6f0" d="M1 12h10v10H1z" />
+                    <path fill="#ffba08" d="M12 12h10v10H12z" />
+                  </svg>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: '0.86rem' }}>
+                      Automated Student Email Verification
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                      A 6-digit OTP verification code will be dispatched to your email
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {domainStatus && (
-                <div className={`domain-alert-banner ${domainStatus.valid ? 'valid' : 'warning'}`}>
-                  {domainStatus.msg}
-                </div>
-              )}
+                {domainStatus && (
+                  <div className={`domain-alert-banner ${domainStatus.isAbes ? 'valid' : 'info'}`}>
+                    {domainStatus.msg}
+                  </div>
+                )}
 
-              {/* Toggle Auth Method (OTP vs Password) */}
-              <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-                <button
-                  type="button"
-                  className={`category-pill ${authMethod === 'otp' ? 'active' : ''}`}
-                  onClick={() => { setAuthMethod('otp'); setError(''); }}
-                  style={{ flex: 1, textAlign: 'center' }}
-                >
-                  📲 6-Digit Microsoft OTP
-                </button>
-                <button
-                  type="button"
-                  className={`category-pill ${authMethod === 'password' ? 'active' : ''}`}
-                  onClick={() => { setAuthMethod('password'); setError(''); }}
-                  style={{ flex: 1, textAlign: 'center' }}
-                >
-                  🔑 Microsoft PIN / Password
-                </button>
-              </div>
-
-              {/* METHOD 1: 6-DIGIT OTP FLOW */}
-              {authMethod === 'otp' ? (
-                otpStep === 1 ? (
-                  <form onSubmit={handleSendOtp}>
-                    <div className="form-group">
-                      <label>Official Microsoft College Email ID *</label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="e.g. vaibhav.25ds101@abes.ac.in"
-                        value={studentEmail}
-                        onChange={e => handleEmailChange(e.target.value)}
-                        className="form-input"
-                      />
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                      <div className="form-group">
-                        <label>Student Full Name</label>
-                        <input
-                          type="text"
-                          value={studentName}
-                          onChange={e => setStudentName(e.target.value)}
-                          className="form-input"
-                          placeholder="Vaibhav Goyal"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label>University Roll No</label>
-                        <input
-                          type="text"
-                          value={studentRoll}
-                          onChange={e => setStudentRoll(e.target.value)}
-                          className="form-input"
-                          placeholder="2500321540101"
-                        />
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="btn-primary"
-                      disabled={loading}
-                      style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}
-                    >
-                      {loading ? 'Generating Code...' : '📲 Send 6-Digit Microsoft OTP'}
-                    </button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleVerifyOtp}>
-                    {simulatedOtpNotice && (
-                      <div className="domain-alert-banner valid" style={{ background: 'rgba(0, 240, 255, 0.1)', borderColor: 'var(--cyan)' }}>
-                        <div>
-                          <strong>{simulatedOtpNotice}</strong>
-                          <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: '2px' }}>
-                            (Pre-filled for fast evaluation)
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="form-group">
-                      <label>Enter 6-Digit Microsoft Verification Code *</label>
-                      <input
-                        type="text"
-                        required
-                        maxLength={6}
-                        placeholder="e.g. 842190"
-                        value={enteredOtp}
-                        onChange={e => setEnteredOtp(e.target.value)}
-                        className="form-input"
-                        style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', letterSpacing: '0.2em', textAlign: 'center', color: 'var(--cyan)' }}
-                      />
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '10px', marginTop: '14px' }}>
-                      <button
-                        type="button"
-                        className="btn-secondary"
-                        onClick={() => setOtpStep(1)}
-                        style={{ flex: 1, justifyContent: 'center' }}
-                      >
-                        ← Change Email
-                      </button>
-                      <button
-                        type="submit"
-                        className="btn-primary"
-                        disabled={loading}
-                        style={{ flex: 2, justifyContent: 'center' }}
-                      >
-                        {loading ? 'Verifying...' : '✓ Verify & Enter Portal'}
-                      </button>
-                    </div>
-                  </form>
-                )
-              ) : (
-                /* METHOD 2: DIRECT PASSWORD LOGIN */
-                <form onSubmit={handleStudentPasswordSubmit}>
+                <form onSubmit={handleSendOtp}>
                   <div className="form-group">
-                    <label>Official Microsoft College Email ID *</label>
+                    <label>College / Student Email ID *</label>
                     <input
                       type="email"
                       required
-                      placeholder="e.g. vaibhav.25ds101@abes.ac.in"
+                      placeholder="e.g. yourname.25ds101@abes.ac.in"
                       value={studentEmail}
                       onChange={e => handleEmailChange(e.target.value)}
                       className="form-input"
+                      autoComplete="off"
+                      autoFocus
                     />
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                     <div className="form-group">
-                      <label>Student Full Name</label>
+                      <label>Student Full Name (Optional)</label>
                       <input
                         type="text"
+                        placeholder="e.g. Vaibhav Goyal"
                         value={studentName}
                         onChange={e => setStudentName(e.target.value)}
                         className="form-input"
+                        autoComplete="off"
                       />
                     </div>
                     <div className="form-group">
-                      <label>University Roll No</label>
+                      <label>University Roll No (Optional)</label>
                       <input
                         type="text"
+                        placeholder="e.g. 2500321540101"
                         value={studentRoll}
                         onChange={e => setStudentRoll(e.target.value)}
                         className="form-input"
+                        autoComplete="off"
                       />
                     </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label>Microsoft College Password / PIN *</label>
-                    <input
-                      type="password"
-                      required
-                      value={studentPassword}
-                      onChange={e => setStudentPassword(e.target.value)}
-                      className="form-input"
-                    />
                   </div>
 
                   <button
                     type="submit"
                     className="btn-primary"
-                    style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}
+                    disabled={loading}
+                    style={{ width: '100%', justifyContent: 'center', marginTop: '14px', padding: '12px' }}
                   >
-                    🔐 Verify & Enter Student Portal
+                    {loading ? '📨 Dispatching Email...' : '📨 Send Verification OTP'}
                   </button>
                 </form>
-              )}
-
-              {/* Quick Demo Pre-fills */}
-              <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--line)' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)' }}>
-                  QUICK DEMO STUDENT CREDENTIALS:
-                </span>
-                <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+              </div>
+            ) : (
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '0.86rem', fontWeight: 700 }}>
+                    🔐 Enter 6-Digit OTP Code
+                  </div>
                   <button
                     type="button"
-                    className="btn-secondary"
-                    style={{ fontSize: '0.72rem', padding: '4px 10px' }}
-                    onClick={() => setDemoStudent('vaibhav.25ds101@abes.ac.in', 'Vaibhav#2026', 'Vaibhav Goyal', '2500321540101')}
+                    onClick={() => { setStep('input'); setError(''); setResendMsg(''); }}
+                    style={{ background: 'none', border: 'none', color: 'var(--cyan)', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600 }}
                   >
-                    👤 Vaibhav (2nd Yr DS)
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    style={{ fontSize: '0.72rem', padding: '4px 10px' }}
-                    onClick={() => setDemoStudent('aditi.24ds042@abes.ac.in', 'Student#2026', 'Aditi Sharma', '2400321540042')}
-                  >
-                    👤 Aditi (3rd Yr DS)
+                    ← Change Email
                   </button>
                 </div>
+
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '16px' }}>
+                  We've dispatched an official 6-digit OTP verification email to <strong>{studentEmail}</strong>. Please check your inbox or spam folder.
+                </p>
+
+                <form onSubmit={handleVerifyOtp}>
+                  <div className="form-group" style={{ textAlign: 'center' }}>
+                    <label style={{ justifyContent: 'center', marginBottom: '8px' }}>6-Digit Verification Code</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={6}
+                      required
+                      placeholder="000000"
+                      value={otp}
+                      onChange={e => { setOtp(e.target.value.replace(/\D/g, '')); setError(''); }}
+                      className="form-input otp-input-large"
+                      autoComplete="one-time-code"
+                      autoFocus
+                    />
+                    <div style={{
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      color: expirySeconds <= 60 ? '#dc2626' : 'var(--text-muted)',
+                      marginTop: '8px'
+                    }}>
+                      {expirySeconds > 0
+                        ? `⏱️ Code expires in ${formatTime(expirySeconds)}`
+                        : '⚠️ Code has expired. Please request a new OTP.'}
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    disabled={loading || expirySeconds === 0}
+                    style={{ width: '100%', justifyContent: 'center', marginTop: '16px', padding: '12px' }}
+                  >
+                    {loading ? 'Verifying Code...' : '🔐 Verify OTP & Access Portal'}
+                  </button>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', paddingTop: '14px', borderTop: '1px solid var(--line)' }}>
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Didn't receive email?</span>
+                    <button
+                      type="button"
+                      onClick={handleResendOtp}
+                      disabled={resending || cooldownSeconds > 0}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: cooldownSeconds > 0 ? 'var(--text-muted)' : 'var(--cyan)',
+                        cursor: cooldownSeconds > 0 ? 'not-allowed' : 'pointer',
+                        fontSize: '0.8rem',
+                        fontWeight: 600
+                      }}
+                    >
+                      {resending
+                        ? 'Sending...'
+                        : cooldownSeconds > 0
+                        ? `🔄 Resend Code (${cooldownSeconds}s)`
+                        : '🔄 Resend OTP Code'}
+                    </button>
+                  </div>
+                </form>
               </div>
-            </div>
+            )
           ) : (
             <div>
               <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', marginBottom: '18px' }}>
@@ -3917,7 +3857,8 @@ function AuthModal({ initialRole = 'student', onClose }) {
                     value={committeeEmail}
                     onChange={e => setCommitteeEmail(e.target.value)}
                     className="form-input"
-                    placeholder="hod.ds@abes.ac.in"
+                    placeholder="e.g. hod.ds@abes.ac.in"
+                    autoComplete="off"
                   />
                 </div>
 
@@ -3929,42 +3870,20 @@ function AuthModal({ initialRole = 'student', onClose }) {
                     value={committeePassword}
                     onChange={e => setCommitteePassword(e.target.value)}
                     className="form-input"
+                    placeholder="Enter committee password..."
+                    autoComplete="new-password"
                   />
                 </div>
 
                 <button
                   type="submit"
                   className="btn-primary"
-                  style={{ width: '100%', justifyContent: 'center', marginTop: '10px', background: 'linear-gradient(135deg, var(--emerald), #00c4d4)' }}
+                  disabled={loading}
+                  style={{ width: '100%', justifyContent: 'center', marginTop: '14px', padding: '12px', background: 'linear-gradient(135deg, var(--emerald), #00c4d4)' }}
                 >
-                  ⚙️ Enter Committee Portal
+                  {loading ? 'Verifying...' : '⚙️ Enter Committee Portal'}
                 </button>
               </form>
-
-              {/* Quick Demo Pre-fills */}
-              <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--line)' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)' }}>
-                  QUICK DEMO COMMITTEE CREDENTIALS:
-                </span>
-                <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    style={{ fontSize: '0.72rem', padding: '4px 10px' }}
-                    onClick={() => setDemoCommittee('hod.ds@abes.ac.in', 'Admin#DS2026')}
-                  >
-                    🏛️ HOD (Dr. Sanjay Singh)
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    style={{ fontSize: '0.72rem', padding: '4px 10px' }}
-                    onClick={() => setDemoCommittee('committee.ds@abes.ac.in', 'Faculty#DS2026')}
-                  >
-                    👩‍🏫 Convener (Dr. Meenakshi)
-                  </button>
-                </div>
-              </div>
             </div>
           )}
         </div>
